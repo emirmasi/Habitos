@@ -4,8 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -31,6 +34,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.practica.habitos.Data.Models.Categoria
@@ -39,10 +44,10 @@ import com.practica.habitos.ui.theme.BackgroundHoyScree
 import com.practica.habitos.ui.theme.IconCategories
 
 
-///aca va a estar la lista de habitos y para agregar
 @Composable
 fun HoyScreenContent(
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: HoyScreenViewModel = hiltViewModel()
 ){
     ///va a ir una lista y un boton flotante de agregar
     ////me traigo la lista de habitos que tengo desde el vm
@@ -51,15 +56,67 @@ fun HoyScreenContent(
         Habito("habito2","comer", Categoria("comida", Icons.Default.Star,Color.Green), listOf("martes","miercoles"))
     )
 
-    LazyColumn(modifier = Modifier
-        .fillMaxHeight()
+
+    Column(modifier = Modifier
         .background(color = BackgroundHoyScree)
     ){
-        items(habitos.size){ index->
-            ItemCard(habitos[index])
+        ///aca va el calendario
+        CalendarItem(viewModel)
+        Spacer(modifier = Modifier.padding(bottom = 8.dp))
+        LazyColumn(modifier = Modifier
+            .fillMaxHeight()
+            .background(color = BackgroundHoyScree)
+        ){
+            items(habitos.size){ index->
+                ItemCard(habitos[index])
+            }
+        }
+    }
+
+}
+
+@Composable
+fun CalendarItem(viewModel: HoyScreenViewModel) {
+    Row {
+        viewModel.dateInRange.forEach { date->
+            Card(
+                modifier = Modifier
+                    .size(58.dp)
+                    .background(Color.Black)
+                    .padding(3.dp)
+                    .clickable {
+                        ///que me busque los habitos en la db por fecha
+                    }
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.DarkGray)
+                ) {
+                    Text(
+                        text = "${date.dayOfWeek.subSequence(0,3)}",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "${date.day}",
+                        fontSize = 24.sp,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun DateItemPreview(){
+    CalendarItem(viewModel = HoyScreenViewModel())
+}
+
 
 @Composable
 fun ItemCard(habito : Habito) {
@@ -90,7 +147,7 @@ fun ItemCard(habito : Habito) {
                     modifier = Modifier
                         .size(50.dp)
                         .clip(RoundedCornerShape(8.dp))
-                        .padding(horizontal = 3.dp )
+                        .padding(horizontal = 3.dp)
                         .background(habito.categoria.color),
                     tint = IconCategories
                     )
