@@ -17,10 +17,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
@@ -35,27 +31,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.practica.habitos.Data.Models.Categoria
 import com.practica.habitos.Data.Models.Habito
 import com.practica.habitos.ui.theme.BackgroundHoyScree
 import com.practica.habitos.ui.theme.IconCategories
+import java.time.format.TextStyle
+import java.util.Locale
 
 
 @Composable
 fun HoyScreenContent(
     navController: NavHostController,
-    viewModel: HoyScreenViewModel = hiltViewModel()
+    viewModel: HoyScreenViewModel
 ){
-    ///va a ir una lista y un boton flotante de agregar
-    ////me traigo la lista de habitos que tengo desde el vm
-    val habitos = listOf(
-        Habito("habito1","correr diario", Categoria("deporte", Icons.Default.Star,Color.Magenta), listOf("martes","miercoles")),
-        Habito("habito2","comer", Categoria("comida", Icons.Default.Star,Color.Green), listOf("martes","miercoles"))
-    )
-
+    val habitos = listOf<Habito>()
 
     Column(modifier = Modifier
         .background(color = BackgroundHoyScree)
@@ -95,7 +85,7 @@ fun CalendarItem(viewModel: HoyScreenViewModel) {
                         .background(Color.DarkGray)
                 ) {
                     Text(
-                        text = "${date.dayOfWeek.subSequence(0,3)}",
+                        text = "${date.dayOfWeek.getDisplayName(TextStyle.FULL,Locale("es")).toString().subSequence(0,3)}",
                         color = Color.White,
                         fontWeight = FontWeight.Bold
                     )
@@ -111,13 +101,6 @@ fun CalendarItem(viewModel: HoyScreenViewModel) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DateItemPreview(){
-    CalendarItem(viewModel = HoyScreenViewModel())
-}
-
-
 @Composable
 fun ItemCard(habito : Habito) {
     Card(
@@ -125,7 +108,7 @@ fun ItemCard(habito : Habito) {
             .fillMaxWidth()
             .padding(all = 5.dp)
             .clickable {
-                habito.realizado = !habito.realizado
+
             },
     ) {
         Row(
@@ -197,6 +180,7 @@ fun CircleWithArrowAndCross(
                 ),
             color = Color.DarkGray, // Ajusta el color del círculo según tus necesidades
         ) {
+            /*
             if(habito.realizado){
                 Icon(
                     imageVector = Icons.Default.Check,
@@ -208,6 +192,8 @@ fun CircleWithArrowAndCross(
                     contentDescription = "no lo realizon",
                     tint = Color.Red)
             }
+
+             */
         }
 
     }
@@ -219,5 +205,5 @@ fun CircleWithArrowAndCross(
 @Composable
 fun ItemsPreview(){
     val navController = rememberNavController()
-    HoyScreenContent(navController = navController)
+    HoyScreenContent(navController = navController, HoyScreenViewModel())
 }

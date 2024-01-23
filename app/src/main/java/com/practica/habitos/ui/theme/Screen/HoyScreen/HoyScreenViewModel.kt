@@ -2,42 +2,29 @@ package com.practica.habitos.ui.theme.Screen.HoyScreen
 
 import androidx.lifecycle.ViewModel
 import com.practica.habitos.Data.Models.DateItem
-import dagger.hilt.android.lifecycle.HiltViewModel
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
-import javax.inject.Inject
+import java.time.LocalDate
 
-@HiltViewModel
-class HoyScreenViewModel @Inject constructor(
-
-): ViewModel()
+class HoyScreenViewModel : ViewModel()
 {
     val dateInRange = loadDateInRange()
 
     fun loadDateInRange(): List<DateItem>{
-        val inicio = Calendar.getInstance()
-        val fin = Calendar.getInstance().apply {
-            add(Calendar.MONTH,2)
-        }
+        val inicio = LocalDate.now().minusMonths(3)
+        val fin = inicio.plusMonths(3)
         return getDayBetween(inicio,fin)
     }
-    fun getDayBetween(inicio: Calendar, fin: Calendar): List<DateItem> {
+    fun getDayBetween(inicio: LocalDate, fin: LocalDate): List<DateItem> {
 
-        val calendar = Calendar.getInstance()
-        calendar.time = inicio.time
+        val datesBetweenStarAndEnd = mutableListOf<DateItem>()
+        var fechaActual = inicio
+        while (!fechaActual.isAfter(fin)){
 
-        val dateInRange = mutableListOf<DateItem>()
-        while(calendar.before(fin) || calendar.equals(fin)){
-            val dateItem = DateItem(
-                day = calendar.get(Calendar.DAY_OF_MONTH),
-                month = calendar.get(Calendar.MONTH) + 1,  // Adding 1 because months are zero-based
-                dayOfWeek = SimpleDateFormat("EEEE", Locale.getDefault()).format(calendar.time)
-            )
+            DateItem(fechaActual.dayOfMonth,fechaActual.month.value,fechaActual.year,fechaActual.dayOfWeek)
+            datesBetweenStarAndEnd.add(DateItem(fechaActual.dayOfMonth,fechaActual.month.value,fechaActual.year,fechaActual.dayOfWeek))
 
-            dateInRange.add(dateItem)
-            calendar.add(Calendar.DATE, 1)
+            fechaActual = fechaActual.plusDays(1)
         }
-        return dateInRange
+
+        return datesBetweenStarAndEnd
     }
 }

@@ -8,6 +8,7 @@ import com.practica.habitos.Data.Models.Screens
 import com.practica.habitos.ui.theme.Screen.CategoryScreen.CategoriesScreenContent
 import com.practica.habitos.ui.theme.Screen.HabitsScreen.HabitsScreenContent
 import com.practica.habitos.ui.theme.Screen.HoyScreen.HoyScreenContent
+import com.practica.habitos.ui.theme.Screen.HoyScreen.HoyScreenViewModel
 
 @Composable
 fun NavigationComponent(
@@ -18,7 +19,7 @@ fun NavigationComponent(
         startDestination = Screens.Hoy.route,
     ){
         composable(Screens.Hoy.route){
-            HoyScreenContent(navHostController)
+            HoyScreenContent(navHostController, HoyScreenViewModel())
         }
         composable(Screens.Habits.route){
             HabitsScreenContent()

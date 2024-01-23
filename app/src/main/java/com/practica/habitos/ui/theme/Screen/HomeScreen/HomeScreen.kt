@@ -26,6 +26,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.practica.habitos.Data.Models.Screens
+import com.practica.habitos.Domain.utils.currentRoute
 import com.practica.habitos.ui.theme.BackgroundHoyScree
 import com.practica.habitos.ui.theme.IconColor
 import com.practica.habitos.ui.theme.Rosadito
@@ -60,7 +62,11 @@ fun Contenido(
     scope: CoroutineScope
 ){
     Scaffold(
-        topBar = { TopBar(drawerState, scope = scope)},
+        topBar = {
+            if(currentRoute(navController = navController) == Screens.Hoy.route){
+                TopBar(drawerState, scope = scope)
+            }
+                 },
         bottomBar = { BottomBar(navController = navController)},
         floatingActionButton = {
                 FloatingActionButton(
