@@ -1,5 +1,6 @@
 package com.practica.habitos.ui.theme.Screen.HoyScreen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,9 +19,15 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material3.Card
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,46 +43,72 @@ import androidx.navigation.compose.rememberNavController
 import com.practica.habitos.Data.Models.Habito
 import com.practica.habitos.ui.theme.BackgroundHoyScree
 import com.practica.habitos.ui.theme.IconCategories
+import com.practica.habitos.ui.theme.components.MenuLateral
+import com.practica.habitos.ui.theme.components.TopBar
+import kotlinx.coroutines.CoroutineScope
 import java.time.format.TextStyle
 import java.util.Locale
 
-
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HoyScreenContent(
     navController: NavHostController,
     viewModel: HoyScreenViewModel
 ){
-    val habitos = listOf<Habito>()
 
-    Column(modifier = Modifier
-        .background(color = BackgroundHoyScree)
-    ){
-        ///aca va el calendario
-        CalendarItem(viewModel)
-        Spacer(modifier = Modifier.padding(bottom = 8.dp))
-        LazyColumn(modifier = Modifier
-            .fillMaxHeight()
+    val drawerState : DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+    MenuLateral(navController = navController, drawerdState = drawerState, scope = scope ) {
+        ContenidoHoyScreen(drawerState,scope,viewModel)
+    }
+}
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ContenidoHoyScreen(
+    drawerState: DrawerState,
+    scope:CoroutineScope,
+    viewModel: HoyScreenViewModel
+){
+
+    Scaffold(
+        topBar = {TopBar(drawerState = drawerState,scope = scope,viewModel = viewModel)}
+    ) {  paddingValues ->
+        Column(modifier = Modifier
             .background(color = BackgroundHoyScree)
+            .padding(paddingValues)
         ){
-            items(habitos.size){ index->
-                ItemCard(habitos[index])
+
+            ///aca va el calendario
+            CalendarItem(viewModel)
+
+            viewModel.hoy.value?.toConvert()?.let { Text(text = it) }
+
+            Spacer(modifier = Modifier.padding(bottom = 8.dp))
+            LazyColumn(modifier = Modifier
+                .fillMaxHeight()
+                .background(color = BackgroundHoyScree)
+            ){
+                items(viewModel.habitos.size){ index->
+                    ItemCard(viewModel.habitos[index])
+                }
             }
         }
     }
-
 }
-
 @Composable
 fun CalendarItem(viewModel: HoyScreenViewModel) {
+
     Row {
         viewModel.dateInRange.forEach { date->
             Card(
                 modifier = Modifier
                     .size(58.dp)
-                    .background(Color.Black)
+                    .background(BackgroundHoyScree)
                     .padding(3.dp)
                     .clickable {
-                        ///que me busque los habitos en la db por fecha
+                        viewModel.actualizarHoy(date)
                     }
             ) {
                 Column(

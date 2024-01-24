@@ -7,4 +7,8 @@ class DateItem(
     val month: Int,
     val year: Int,
     val dayOfWeek: DayOfWeek
-)
+){
+    fun toConvert(): String {
+        return "$day/$month/$year"
+    }
+}

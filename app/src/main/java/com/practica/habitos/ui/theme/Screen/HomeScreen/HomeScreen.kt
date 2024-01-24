@@ -9,33 +9,24 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.DrawerState
-import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.practica.habitos.Data.Models.Screens
-import com.practica.habitos.Domain.utils.currentRoute
 import com.practica.habitos.ui.theme.BackgroundHoyScree
 import com.practica.habitos.ui.theme.IconColor
 import com.practica.habitos.ui.theme.Rosadito
 import com.practica.habitos.ui.theme.components.BottomBar
-import com.practica.habitos.ui.theme.components.MenuLateral
 import com.practica.habitos.ui.theme.components.NavigationComponent
-import com.practica.habitos.ui.theme.components.TopBar
-import kotlinx.coroutines.CoroutineScope
 
 ///aca hacemos el las navegaciones el top
 
@@ -44,13 +35,7 @@ import kotlinx.coroutines.CoroutineScope
 @Composable
 fun HomeScreen(){
     val controller = rememberNavController()
-    val drawerState : DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
-
-
-    MenuLateral(navController = controller, drawerdState = drawerState, scope = scope) {
-        Contenido(navController = controller, drawerState = drawerState, scope = scope)
-    }
+    Contenido(navController = controller)
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -58,15 +43,9 @@ fun HomeScreen(){
 @Composable
 fun Contenido(
     navController: NavHostController,
-    drawerState: DrawerState,
-    scope: CoroutineScope
 ){
     Scaffold(
-        topBar = {
-            if(currentRoute(navController = navController) == Screens.Hoy.route){
-                TopBar(drawerState, scope = scope)
-            }
-                 },
+
         bottomBar = { BottomBar(navController = navController)},
         floatingActionButton = {
                 FloatingActionButton(

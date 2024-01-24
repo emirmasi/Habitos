@@ -1,12 +1,12 @@
 package com.practica.habitos.ui.theme.components
 
-import android.app.DatePickerDialog
-import android.icu.util.Calendar
-import android.widget.DatePicker
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material3.Button
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -14,48 +14,40 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.practica.habitos.Data.Models.DateItem
 import com.practica.habitos.ui.theme.BackgroundHoyScree
 import com.practica.habitos.ui.theme.IconColor
 import com.practica.habitos.ui.theme.Rosadito
+import com.practica.habitos.ui.theme.Screen.HoyScreen.HoyScreenViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import java.util.Date
+import java.time.Instant
+import java.time.ZoneId
 
 @ExperimentalMaterial3Api
 @Composable
 fun TopBar(
     drawerState: DrawerState,
     scope:CoroutineScope,
+    viewModel: HoyScreenViewModel
 ){
-    val dayOfMonth:Int
-    val month:Int
-    val year:Int
-
-    val calendar = Calendar.getInstance()
-    year = calendar.get(Calendar.YEAR)
-    month = calendar.get(Calendar.MONTH)
-    dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
-    calendar.time = Date()
-
-    val date = remember{ mutableStateOf("Hoy") }
-    val datePickerDialog = DatePickerDialog(
-         LocalContext.current,
-        {_: DatePicker, year:Int,month:Int,dayofYear:Int->
-            date.value = "$dayofYear/$month/$year"
-        },year,month,dayOfMonth
-    )
-
+    val state = rememberDatePickerState()
+    var showDialog by remember{
+        mutableStateOf(false)
+    }
 
     TopAppBar(
         title = {
             Text(
-                text = date.value,
+                text = "${viewModel.hoy.value?.toConvert()}",
                 color = com.practica.habitos.ui.theme.Text
             )
                 },
@@ -79,7 +71,7 @@ fun TopBar(
             //aca va el calendario
             IconButton(
                 onClick = {
-                    datePickerDialog.show()
+                    showDialog = true
                 }
             ) {
                 Icon(
@@ -88,7 +80,23 @@ fun TopBar(
                     modifier = Modifier.size(40.dp),
                     tint = IconColor
                 )
+                if(showDialog){
+                    DatePickerDialog(
+                        onDismissRequest = { showDialog = false },
+                        confirmButton = {
+                            Button(onClick = { showDialog = false }) {
+                                Text(text = "Confirmar")
+                            }     
+                        }
+                    )
+                    {
+                        DatePicker(state = state)
+                    }
+                }
             }
+            val date = state.selectedDateMillis
+            val instance = Instant.ofEpochMilli(date!!).atZone(ZoneId.of("UTC")).toLocalDate()
+            viewModel.actualizarHoy(DateItem(instance.dayOfMonth,instance.month.value,instance.year,instance.dayOfWeek))
         },
         colors = TopAppBarDefaults.largeTopAppBarColors(
             containerColor = BackgroundHoyScree
