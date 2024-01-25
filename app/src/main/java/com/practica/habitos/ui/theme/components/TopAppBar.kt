@@ -30,6 +30,7 @@ import com.practica.habitos.ui.theme.Screen.HoyScreen.HoyScreenViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.time.Instant
+import java.time.LocalDate
 import java.time.ZoneId
 
 @ExperimentalMaterial3Api
@@ -82,24 +83,40 @@ fun TopBar(
                 )
                 if(showDialog){
                     DatePickerDialog(
-                        onDismissRequest = { showDialog = false },
+                        onDismissRequest = {showDialog = false},
                         confirmButton = {
-                            Button(onClick = { showDialog = false }) {
+                            Button(onClick = {
+                                showDialog = false
+                            }
+                            ) {
                                 Text(text = "Confirmar")
-                            }     
+                            }
                         }
-                    )
-                    {
-                        DatePicker(state = state)
+                    ) {
+                        DatePicker(
+                            state = state
+                        )
                     }
                 }
+
+                val date = state.selectedDateMillis
+                date?.let {
+                    val instance: LocalDate = Instant.ofEpochMilli(date).atZone(ZoneId.of("UTC")).toLocalDate()
+                    viewModel.actualizarHoy(
+                        DateItem(
+                            instance.dayOfMonth,
+                            instance.month.value,
+                            instance.year,
+                            instance.dayOfWeek
+                        )
+                    )
+                }
             }
-            val date = state.selectedDateMillis
-            val instance = Instant.ofEpochMilli(date!!).atZone(ZoneId.of("UTC")).toLocalDate()
-            viewModel.actualizarHoy(DateItem(instance.dayOfMonth,instance.month.value,instance.year,instance.dayOfWeek))
+
         },
         colors = TopAppBarDefaults.largeTopAppBarColors(
             containerColor = BackgroundHoyScree
         )
     )
 }
+

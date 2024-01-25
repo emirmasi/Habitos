@@ -50,13 +50,11 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HoyScreenContent(
     navController: NavHostController,
     viewModel: HoyScreenViewModel
 ){
-
     val drawerState : DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     MenuLateral(navController = navController, drawerdState = drawerState, scope = scope ) {
@@ -80,12 +78,10 @@ fun ContenidoHoyScreen(
             .padding(paddingValues)
         ){
 
-            ///aca va el calendario
             CalendarItem(viewModel)
 
-            viewModel.hoy.value?.toConvert()?.let { Text(text = it) }
-
             Spacer(modifier = Modifier.padding(bottom = 8.dp))
+
             LazyColumn(modifier = Modifier
                 .fillMaxHeight()
                 .background(color = BackgroundHoyScree)
@@ -124,7 +120,7 @@ fun CalendarItem(viewModel: HoyScreenViewModel) {
                     )
                     Text(
                         text = "${date.day}",
-                        fontSize = 24.sp,
+                        fontSize = 20.sp,
                         color = Color.White,
                         fontWeight = FontWeight.Bold
                     )

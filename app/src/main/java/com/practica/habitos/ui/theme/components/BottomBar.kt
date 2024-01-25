@@ -26,11 +26,11 @@ fun BottomBar(
     )
 
     BottomAppBar(
+        containerColor = BackgrounBottomBar,
         contentColor = BackgrounBottomBar
     ) {
         NavigationBar(
-            containerColor = BackgrounBottomBar,
-            contentColor = BackgrounBottomBar
+            containerColor = BackgrounBottomBar
         ) {
             menu_items.forEach {item->
                 NavigationBarItem(
