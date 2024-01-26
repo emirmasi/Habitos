@@ -87,9 +87,29 @@ fun TopBar(
                         confirmButton = {
                             Button(onClick = {
                                 showDialog = false
+                                val date = state.selectedDateMillis
+                                date?.let {
+                                    val instance: LocalDate = Instant.ofEpochMilli(date).atZone(
+                                        ZoneId.of("UTC")).toLocalDate()
+                                    viewModel.actualizarHoy(
+                                        DateItem(
+                                            instance.dayOfMonth,
+                                            instance.month.value,
+                                            instance.year,
+                                            instance.dayOfWeek
+                                        )
+                                    )
+                                }
                             }
                             ) {
                                 Text(text = "Confirmar")
+                            }
+                        },
+                        dismissButton = {
+                            Button(
+                                onClick = { showDialog = false }
+                            ) {
+                                Text(text = "Cerrar")
                             }
                         }
                     ) {
@@ -99,18 +119,7 @@ fun TopBar(
                     }
                 }
 
-                val date = state.selectedDateMillis
-                date?.let {
-                    val instance: LocalDate = Instant.ofEpochMilli(date).atZone(ZoneId.of("UTC")).toLocalDate()
-                    viewModel.actualizarHoy(
-                        DateItem(
-                            instance.dayOfMonth,
-                            instance.month.value,
-                            instance.year,
-                            instance.dayOfWeek
-                        )
-                    )
-                }
+
             }
 
         },

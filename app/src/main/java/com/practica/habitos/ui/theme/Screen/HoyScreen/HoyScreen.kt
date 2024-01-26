@@ -15,9 +15,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Card
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
@@ -27,7 +33,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,9 +50,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.practica.habitos.Data.Models.Habito
+import com.practica.habitos.Data.Models.UserHabitLog
 import com.practica.habitos.ui.theme.BackgroundHoyScree
 import com.practica.habitos.ui.theme.IconCategories
+import com.practica.habitos.ui.theme.Rosadito
 import com.practica.habitos.ui.theme.components.MenuLateral
 import com.practica.habitos.ui.theme.components.TopBar
 import kotlinx.coroutines.CoroutineScope
@@ -77,11 +88,11 @@ fun ContenidoHoyScreen(
             .background(color = BackgroundHoyScree)
             .padding(paddingValues)
         ){
-
+            ///hecho
             CalendarItem(viewModel)
-
             Spacer(modifier = Modifier.padding(bottom = 8.dp))
-
+            //todo:modificaciones a la lista , 1-cuando clickee llevarlo al final , 2- dibujar bien los x y las j
+            //
             LazyColumn(modifier = Modifier
                 .fillMaxHeight()
                 .background(color = BackgroundHoyScree)
@@ -96,22 +107,35 @@ fun ContenidoHoyScreen(
 @Composable
 fun CalendarItem(viewModel: HoyScreenViewModel) {
 
-    Row {
-        viewModel.dateInRange.forEach { date->
+    var backgroundColor by remember {mutableStateOf(Color.DarkGray) }
+    val scrollState = rememberLazyListState(initialFirstVisibleItemIndex = viewModel.dateInRange.indexOf(viewModel.returnTodayDateInRange()))
+    var selectedCardIndex by remember { mutableStateOf(-1) }
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        state = scrollState
+    ) {
+        itemsIndexed(viewModel.dateInRange){index, date->
+            val isSelected = index == selectedCardIndex
             Card(
                 modifier = Modifier
                     .size(58.dp)
-                    .background(BackgroundHoyScree)
+                    .height(60.dp)
                     .padding(3.dp)
                     .clickable {
+                        backgroundColor = Rosadito
+                        selectedCardIndex = index
                         viewModel.actualizarHoy(date)
                     }
+                    .background(BackgroundHoyScree)
             ) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(Color.DarkGray)
+                        .background(if (isSelected) backgroundColor else Color.DarkGray)
                 ) {
                     Text(
                         text = "${date.dayOfWeek.getDisplayName(TextStyle.FULL,Locale("es")).toString().subSequence(0,3)}",
@@ -131,7 +155,7 @@ fun CalendarItem(viewModel: HoyScreenViewModel) {
 }
 
 @Composable
-fun ItemCard(habito : Habito) {
+fun ItemCard(habito: UserHabitLog) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -154,13 +178,13 @@ fun ItemCard(habito : Habito) {
                 contentAlignment = Alignment.CenterStart
                 ){
                 Icon(
-                    imageVector = habito.categoria.icono,
-                    contentDescription = habito.habito,
+                    imageVector = habito.habito.categoria.icono,
+                    contentDescription = habito.habito.descripcion,
                     modifier = Modifier
                         .size(50.dp)
                         .clip(RoundedCornerShape(8.dp))
                         .padding(horizontal = 3.dp)
-                        .background(habito.categoria.color),
+                        .background(habito.habito.categoria.color),
                     tint = IconCategories
                     )
             }
@@ -170,7 +194,7 @@ fun ItemCard(habito : Habito) {
                 contentAlignment = Alignment.CenterStart
             ) {
                 Text(
-                    text = habito.habito,
+                    text = habito.habito.habito,
                     textAlign = TextAlign.Start,
                     fontWeight = FontWeight.Bold,
                     color = com.practica.habitos.ui.theme.Text
@@ -191,13 +215,18 @@ fun ItemCard(habito : Habito) {
 @Composable
 fun CircleWithArrowAndCross(
     size: Int,
-    habito: Habito
+    habito: UserHabitLog
     ) {
     // Usamos un Box para contener el círculo y los iconos
+    var completed by remember { mutableStateOf(habito.completed) }
     Box(
         modifier = Modifier
             .size(size.dp)
             .padding(end = 2.dp)
+            .clickable {
+                completed = !completed
+                habito.completed = completed
+            }
     ) {
         // Círculo base
         Surface(
@@ -207,27 +236,33 @@ fun CircleWithArrowAndCross(
                     shape = CircleShape,
                     clip = true,
                 ),
-            color = Color.DarkGray, // Ajusta el color del círculo según tus necesidades
+            color = Color.DarkGray // Ajusta el color del círculo según tus necesidades
         ) {
-            /*
-            if(habito.realizado){
-                Icon(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = "chequeado",
-                    tint = Color.Green)
-            }else{
-                Icon(
-                    imageVector = Icons.Default.Clear,
-                    contentDescription = "no lo realizon",
-                    tint = Color.Red)
+            when {
+                completed->TildeCorrecto()
+                !completed->XIncorrecto()
             }
-
-             */
         }
 
     }
 }
 
+@Composable
+fun XIncorrecto() {
+    Icon(
+        imageVector = Icons.Default.Clear,
+        contentDescription = "no completed",
+        tint = Color.Red)
+}
+
+@Composable
+fun TildeCorrecto() {
+   Icon(
+       imageVector = Icons.Default.Check,
+       contentDescription = "completed",
+       tint = Color.Green
+   )
+}
 
 
 @Preview(showBackground = true)
