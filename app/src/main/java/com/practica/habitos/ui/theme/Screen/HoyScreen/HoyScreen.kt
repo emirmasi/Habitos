@@ -181,8 +181,8 @@ fun ItemCard(habito: UserHabitLog) {
                     imageVector = habito.habito.categoria.icono,
                     contentDescription = habito.habito.descripcion,
                     modifier = Modifier
-                        .size(50.dp)
-                        .clip(RoundedCornerShape(8.dp))
+                        .size(45.dp)
+                        .clip(RoundedCornerShape(16.dp))
                         .padding(horizontal = 3.dp)
                         .background(habito.habito.categoria.color),
                     tint = IconCategories

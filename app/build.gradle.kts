@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id ("kotlin-android-extensions")
     id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlinx.kover")
 }
@@ -95,4 +96,6 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.5.0")
     ///
     implementation("androidx.compose.material3:material3:1.1.2")
+    
+
 }
