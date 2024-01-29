@@ -11,7 +11,7 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 ///colores de base
-val Rosadito = Color(0xFFC722A3)
+val Rosadito = Color(0xFFB61D51)
 val BackgroundHoyScree = Color(0xFF201F20)
 val BackgrounBottomBar = Color(0xFF3C383C)
 val Text = Color(0xFFF7F3F7)

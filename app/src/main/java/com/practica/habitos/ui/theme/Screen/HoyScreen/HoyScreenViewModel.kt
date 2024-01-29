@@ -1,14 +1,9 @@
 package com.practica.habitos.ui.theme.Screen.HoyScreen
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
-import com.practica.habitos.Data.Models.Categoria
 import com.practica.habitos.Data.Models.DateItem
-import com.practica.habitos.Data.Models.Habito
 import com.practica.habitos.Data.Models.UserHabitLog
 import java.time.LocalDate
 
@@ -16,12 +11,7 @@ class HoyScreenViewModel : ViewModel()
 {
     val fechaActual = LocalDate.now()
     val habitos = listOf<UserHabitLog>(
-        UserHabitLog(
-            Habito("comer","cada dos horas", Categoria("deporte", Icons.Default.Add, Color.Magenta), LocalDate.now(),LocalDate.now(),
-                emptySet(),3),
-            convertLocalDateToDateItem(LocalDate.now()),
-            true
-        )
+
     )
     var dateInRange = mutableListOf<DateItem>()
 

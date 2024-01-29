@@ -22,7 +22,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.practica.habitos.ui.theme.BackgroundHoyScree
 import com.practica.habitos.ui.theme.IconColor
 import com.practica.habitos.ui.theme.Rosadito
 import com.practica.habitos.ui.theme.components.BottomBar
@@ -39,7 +38,6 @@ fun HomeScreen(){
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Contenido(
     navController: NavHostController,
@@ -50,17 +48,19 @@ fun Contenido(
         floatingActionButton = {
                 FloatingActionButton(
                     modifier = Modifier
-                        .background(BackgroundHoyScree),
+                        .size(50.dp),
                     shape = MaterialTheme.shapes.medium,
                     onClick = {
+                            ///aca agregamos un nuevo habito
 
                     },
+                    containerColor = Rosadito
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,
                         contentDescription = "Add",
                         modifier = Modifier
-                            .size(60.dp)
+                            .size(30.dp)
                             .clip(RoundedCornerShape(10.dp))
                             .background(Rosadito),
                         tint = IconColor

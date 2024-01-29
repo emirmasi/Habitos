@@ -50,7 +50,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.practica.habitos.Data.Models.UserHabitLog
+import com.practica.habitos.Data.Models.Habito
 import com.practica.habitos.ui.theme.BackgroundHoyScree
 import com.practica.habitos.ui.theme.IconCategories
 import com.practica.habitos.ui.theme.Rosadito
@@ -98,7 +98,9 @@ fun ContenidoHoyScreen(
                 .background(color = BackgroundHoyScree)
             ){
                 items(viewModel.habitos.size){ index->
-                    ItemCard(viewModel.habitos[index])
+                    viewModel.habitos[index].habito.forEach {date->
+                        ItemCard(habito = date)
+                    }
                 }
             }
         }
@@ -155,7 +157,7 @@ fun CalendarItem(viewModel: HoyScreenViewModel) {
 }
 
 @Composable
-fun ItemCard(habito: UserHabitLog) {
+fun ItemCard(habito: Habito) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -178,13 +180,13 @@ fun ItemCard(habito: UserHabitLog) {
                 contentAlignment = Alignment.CenterStart
                 ){
                 Icon(
-                    imageVector = habito.habito.categoria.icono,
-                    contentDescription = habito.habito.descripcion,
+                    imageVector = habito.categoria.icono,
+                    contentDescription = habito.descripcion,
                     modifier = Modifier
                         .size(45.dp)
                         .clip(RoundedCornerShape(16.dp))
                         .padding(horizontal = 3.dp)
-                        .background(habito.habito.categoria.color),
+                        .background(habito.categoria.color),
                     tint = IconCategories
                     )
             }
@@ -194,7 +196,7 @@ fun ItemCard(habito: UserHabitLog) {
                 contentAlignment = Alignment.CenterStart
             ) {
                 Text(
-                    text = habito.habito.habito,
+                    text = habito.habito,
                     textAlign = TextAlign.Start,
                     fontWeight = FontWeight.Bold,
                     color = com.practica.habitos.ui.theme.Text
@@ -215,7 +217,7 @@ fun ItemCard(habito: UserHabitLog) {
 @Composable
 fun CircleWithArrowAndCross(
     size: Int,
-    habito: UserHabitLog
+    habito: Habito
     ) {
     // Usamos un Box para contener el círculo y los iconos
     var completed by remember { mutableStateOf(habito.completed) }
