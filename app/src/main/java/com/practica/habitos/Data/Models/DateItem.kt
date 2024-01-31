@@ -11,4 +11,18 @@ class DateItem(
         return "$day/$month/$year"
     }
 
+    fun esFechaMayor(fecha: DateItem?):Boolean{
+        if (fecha != null) {
+            return when {
+                this.year > fecha.year  -> true
+                this.year < fecha.year -> false
+                this.month > fecha.month -> true
+                this.month < fecha.month -> false
+                this.day > fecha.day -> true
+                else -> false
+            }
+        }else{
+            return false
+        }
+    }
 }
