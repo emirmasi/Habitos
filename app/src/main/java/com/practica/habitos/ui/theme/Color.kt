@@ -12,6 +12,7 @@ val Pink40 = Color(0xFF7D5260)
 
 ///colores de base
 val Rosadito = Color(0xFFB61D51)
+val RosaditoMasClaro = Color(0xFFB8315E)
 val BackgroundHoyScree = Color(0xFF201F20)
 val BackgrounBottomBar = Color(0xFF3C383C)
 val Text = Color(0xFFF7F3F7)
