@@ -23,6 +23,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -107,7 +108,7 @@ fun FechaDeInico(viewModels: AddHabitViewModels) {
                     .width(120.dp)
                     .height(40.dp)
                     .padding(end = 10.dp)
-                    .border(2.dp,color = BackgroundHoyScree,shape = RoundedCornerShape(6.dp))
+                    .border(2.dp, color = BackgroundHoyScree, shape = RoundedCornerShape(6.dp))
                     .background(
                         if (viewModels.selectedFechaDeInicio.value == null)
                             BackgroundHoyScree
@@ -130,7 +131,8 @@ fun FechaDeInico(viewModels: AddHabitViewModels) {
     DatePickerWrapper(
         viewModels = viewModels,
         openDialog = openDialog,
-        onDissmissButton = {openDialog = false}
+        onDissmissButton = {openDialog = false},
+        selectedDate = {viewModels.setSelectedFechaDeInicio(DateItem(it.dayOfMonth,it.month.value,it.year,it.dayOfWeek))}
     )
 
 }
@@ -140,32 +142,36 @@ fun FechaDeInico(viewModels: AddHabitViewModels) {
 fun DatePickerWrapper(
     viewModels: AddHabitViewModels,
     openDialog: Boolean,
-    onDissmissButton: ()->Unit
+    onDissmissButton: ()->Unit,
+    selectedDate: (LocalDate)->Unit
 ){
-    val state = rememberDatePickerState()
+    val state = rememberDatePickerState(null)
+    var selectedDateState by remember { mutableStateOf(LocalDate.now()) } // Estado interno para mantener la fecha seleccionada
+    LaunchedEffect(openDialog) {
+        if (openDialog) {
+            selectedDateState = null // Restablecer la fecha seleccionada cuando el diálogo se abre
+        }
+    }
+
     if(openDialog){
         DatePickerDialog(
             onDismissRequest = { onDissmissButton() },
             confirmButton = {
                 Button(onClick = { onDissmissButton() }) {
                     Text(text = "Confirmar")
-                    val date = state.selectedDateMillis
-                    date?.let {
-                        val instance: LocalDate = Instant.ofEpochMilli(date).atZone(
-                            ZoneId.of("UTC")).toLocalDate()
-                        viewModels.setSelectedFechaDeInicio(
-                            DateItem(
-                                instance.dayOfMonth,
-                                instance.month.value,
-                                instance.year,
-                                instance.dayOfWeek
-                            )
-                        )
-                    }
                 }
             }
         ) {
-            DatePicker(state = state)
+            DatePicker(
+                state = state
+            )
+            val date = state.selectedDateMillis
+            date?.let {
+                val instance: LocalDate = Instant.ofEpochMilli(date).atZone(
+                    ZoneId.of("UTC")).toLocalDate()
+                selectedDateState = instance
+                selectedDate(selectedDateState)
+            }
         }
     }
 }
