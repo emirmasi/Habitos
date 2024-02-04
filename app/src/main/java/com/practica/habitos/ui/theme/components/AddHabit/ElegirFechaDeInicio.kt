@@ -14,16 +14,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.DatePicker
-import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,14 +34,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.practica.habitos.Data.Models.DateItem
 import com.practica.habitos.ui.theme.BackgroundHoyScree
 import com.practica.habitos.ui.theme.Rosadito
 import com.practica.habitos.ui.theme.RosaditoMasClaro
 import com.practica.habitos.ui.theme.Screen.AddHabitScreen.AddHabitViewModels
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneId
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -115,7 +109,7 @@ fun FechaDeInico(viewModels: AddHabitViewModels) {
                         else
                             RosaditoMasClaro
                     ),
-                contentAlignment = Alignment.CenterEnd
+                contentAlignment = Alignment.Center
             ){
                 Text(
                     text = if(viewModels.selectedFechaDeInicio.value != null) "${viewModels.selectedFechaDeInicio.value?.toConvert()}" else "",
@@ -128,50 +122,48 @@ fun FechaDeInico(viewModels: AddHabitViewModels) {
             ///esto deberia ser una funcio aparte
         }
     }
-    DatePickerWrapper(
+
+    DatePickerDrawer(
         viewModels = viewModels,
         openDialog = openDialog,
         onDissmissButton = {openDialog = false},
-        selectedDate = {viewModels.setSelectedFechaDeInicio(DateItem(it.dayOfMonth,it.month.value,it.year,it.dayOfWeek))}
+        selectedDate = {viewModels.setSelectedFechaDeInicio(it)},
+        alertDialog = { alertDialog ->
+            MyAlertDialogForFechaDeInicio(openDialog = alertDialog) {
+                alertDialog.value = false
+            }
+        },
+        isFechaDeInicio = true
     )
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DatePickerWrapper(
-    viewModels: AddHabitViewModels,
-    openDialog: Boolean,
-    onDissmissButton: ()->Unit,
-    selectedDate: (LocalDate)->Unit
-){
-    val state = rememberDatePickerState(null)
-    var selectedDateState by remember { mutableStateOf(LocalDate.now()) } // Estado interno para mantener la fecha seleccionada
-    LaunchedEffect(openDialog) {
-        if (openDialog) {
-            selectedDateState = null // Restablecer la fecha seleccionada cuando el diálogo se abre
-        }
-    }
-
-    if(openDialog){
-        DatePickerDialog(
-            onDismissRequest = { onDissmissButton() },
+fun MyAlertDialogForFechaDeInicio(
+    openDialog: MutableState<Boolean>,
+    function: () -> Unit
+) {
+    ///aca va el alertDialog
+    if(openDialog.value){
+        AlertDialog(
+            onDismissRequest = { function() },
             confirmButton = {
-                Button(onClick = { onDissmissButton() }) {
+                Button(onClick = { function() }) {
                     Text(text = "Confirmar")
                 }
-            }
-        ) {
-            DatePicker(
-                state = state
+            },
+            modifier = Modifier
+                .height(200.dp)
+                .width(500.dp)
+                .background(Color.Black),
+            text = { Text(
+                text = "La fecha de inicio debe ser mayor a la de fecha actual y menor a la fecha de fin ",
+                fontSize = 18.sp,
+                color = Color.Red,
+                fontWeight = FontWeight.Bold
             )
-            val date = state.selectedDateMillis
-            date?.let {
-                val instance: LocalDate = Instant.ofEpochMilli(date).atZone(
-                    ZoneId.of("UTC")).toLocalDate()
-                selectedDateState = instance
-                selectedDate(selectedDateState)
-            }
-        }
+            },
+            containerColor = Color.LightGray
+        )
     }
 }

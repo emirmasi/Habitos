@@ -17,10 +17,10 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,13 +33,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.practica.habitos.Data.Models.DateItem
 import com.practica.habitos.ui.theme.BackgroundHoyScree
 import com.practica.habitos.ui.theme.Rosadito
 import com.practica.habitos.ui.theme.RosaditoMasClaro
 import com.practica.habitos.ui.theme.Screen.AddHabitScreen.AddHabitViewModels
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FechaDeFin(viewModels: AddHabitViewModels) {
     var openDialog by remember {
@@ -110,7 +108,7 @@ fun FechaDeFin(viewModels: AddHabitViewModels) {
                         else
                             RosaditoMasClaro
                     ),
-                contentAlignment = Alignment.CenterEnd
+                contentAlignment = Alignment.Center
             ){
                 Text(
                     text = if(viewModels.selectedFechaDeFin.value != null) "${viewModels.selectedFechaDeFin.value?.toConvert()}" else "",
@@ -122,33 +120,27 @@ fun FechaDeFin(viewModels: AddHabitViewModels) {
             }
         }
     }
-    DatePickerWrapper(
+
+    DatePickerDrawer(
         viewModels = viewModels,
         openDialog = openDialog,
-        onDissmissButton = {openDialog = false},
-        selectedDate = {
-            if(viewModels.fechaDeFinEsMayorQueFechaDeInicio(DateItem(it.dayOfMonth,it.month.value,it.year,it.dayOfWeek))){
-                viewModels.setSelectedFechaDeFin(DateItem(it.dayOfMonth,it.month.value,it.year,it.dayOfWeek))
-            }else{
-                openAlertDialog.value = true
-                openDialog = false
-            }
-
-        }
+        onDissmissButton = { openDialog = false },
+        selectedDate = {viewModels.setSelectedFechaDeFin(it)},
+        alertDialog = {alertDialog-> MyAlertDialogForFechaDeFin1(openAlertDialog = alertDialog ) {
+            alertDialog.value = false
+        }},
+        isFechaDeInicio = false
     )
-    MyAlertDialogForFechaDeFin1(
-        openAlertDialog = openAlertDialog.value
-    ){
-        openAlertDialog.value = false
-    }
+
 }
 
+///tengo que hacer ue el drawwer de fecha sea funcional para la fecha de fin y fecha de inicio
 @Composable
 fun MyAlertDialogForFechaDeFin1(
-    openAlertDialog:Boolean,
+    openAlertDialog:MutableState<Boolean>,
     onDissmisButton: ()->Unit
 ){
-    if(openAlertDialog){
+    if(openAlertDialog.value){
         AlertDialog(
             onDismissRequest = { onDissmisButton() },
             confirmButton = {
@@ -157,16 +149,16 @@ fun MyAlertDialogForFechaDeFin1(
                     }
                  },
             modifier = Modifier
-                .height(300.dp)
-                .width(500.dp)
-                .background(Color.Black),
+                .height(200.dp)
+                .width(500.dp),
             text = { Text(
-                text = "La fecha de fin debe ser menor a la de fecha de inicio",
+                text = "La fecha de fin debe ser mayor a la de fecha de inicio",
                 fontSize = 18.sp,
                 color = Color.Red,
                 fontWeight = FontWeight.Bold
                 )
-            }
+            },
+            containerColor = Color.LightGray
         )
 
     }

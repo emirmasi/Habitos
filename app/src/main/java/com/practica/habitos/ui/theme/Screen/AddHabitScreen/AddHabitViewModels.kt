@@ -63,15 +63,30 @@ class AddHabitViewModels: ViewModel(){
     }
 
     fun fechaDeFinEsMayorQueFechaDeInicio(fechaDeFin: DateItem):Boolean{
-        when{
+        return when{
             fechaDeFin.year > selectedFechaDeInicio.value?.year!! -> true
             fechaDeFin.year < selectedFechaDeInicio.value?.year!! -> false
             fechaDeFin.month > selectedFechaDeInicio.value?.month!! -> true
             fechaDeFin.month < selectedFechaDeInicio.value?.month!! -> false
             fechaDeFin.day > selectedFechaDeInicio.value?.day!! -> true
-            else->false
+            else-> false
         }
-        return false
+    }
+    fun fechaDeInicioEsMayorQueFechaDeFin(fechaDeInicio: DateItem):Boolean{
+        if(selectedFechaDeFin.value == null)
+            return true
+
+        return when{
+            fechaDeInicio.year > selectedFechaDeFin.value?.year!! -> true
+            fechaDeInicio.year < selectedFechaDeFin.value?.year!! -> false
+            fechaDeInicio.month > selectedFechaDeFin.value?.month!! -> true
+            fechaDeInicio.month < selectedFechaDeFin.value?.month!! -> false
+            fechaDeInicio.day > selectedFechaDeFin.value?.day!! -> true
+            else-> false
+        }
+    }
+    fun parseDateLocalDateToDateItem(fecha:LocalDate):DateItem{
+        return DateItem(fecha.dayOfMonth,fecha.month.value,fecha.year,fecha.dayOfWeek)
     }
 
     fun parseDateStringToDateItem(date: String): DateItem? {
