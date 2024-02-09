@@ -50,6 +50,7 @@ fun ElegirDiasDeLaSemana(
     }
 }
 
+///aca puedo enviar el composable por funcion el de withArrow, puedo enviar dos composable
 @Composable
 fun OptionDateOfWeek(viewModel: AddHabitViewModels) {
     var openOptionDayOfWeek by remember{
