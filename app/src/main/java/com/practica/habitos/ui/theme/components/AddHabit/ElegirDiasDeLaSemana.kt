@@ -1,6 +1,7 @@
 package com.practica.habitos.ui.theme.components.AddHabit
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,18 +13,23 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.practica.habitos.ui.theme.Rosadito
 import com.practica.habitos.ui.theme.Screen.AddHabitScreen.AddHabitViewModels
+import com.practica.habitos.ui.theme.Screen.HoyScreen.TildeCorrecto
 
 @Composable
 fun ElegirDiasDeLaSemana(
@@ -44,16 +50,23 @@ fun ElegirDiasDeLaSemana(
         )
         Spacer(modifier = Modifier.padding(top = 10.dp))
         ///aca tengo que mostrar ambos opciones
-        OptionDateOfWeek(
-            viewModel
-        )
+
     }
 }
 
 ///aca puedo enviar el composable por funcion el de withArrow, puedo enviar dos composable
 @Composable
-fun OptionDateOfWeek(viewModel: AddHabitViewModels) {
+fun OptionDateOfWeek(
+    viewModel: AddHabitViewModels,
+    circleWitArrow: @Composable (AddHabitViewModels, MutableState<Boolean>)->Unit,
+    selectedDayOfWeek: @Composable ()->Unit,
+    textForTitle: String,
+    desplegable:Boolean,
+) {
     var openOptionDayOfWeek by remember{
+        mutableStateOf(false)
+    }
+    var clickOption = remember {
         mutableStateOf(false)
     }
     Row(
@@ -61,37 +74,29 @@ fun OptionDateOfWeek(viewModel: AddHabitViewModels) {
             .fillMaxWidth()
             .clickable {
                 ///logica
-                openOptionDayOfWeek = false
-            }
+                clickOption.value = !clickOption.value
+                if (desplegable)
+                    openOptionDayOfWeek = true
+            },
+        horizontalArrangement = Arrangement.Start,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        ///circulo base y texto
-        CircleWithArrow(viewModel)
+        circleWitArrow(viewModel,clickOption)
         Text(
-            text = "Todos los dias"
-        )
-    }
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable {
-            ///logica
-                openOptionDayOfWeek = true
-            }
-    ) {
-        CircleWithArrow(viewModel)
-        Text(
-            text = "Dia especifico de la semana"
+            text = textForTitle,
+            fontSize = 16.sp,
+            color = Color.Black,
+            textAlign = TextAlign.Center
         )
     }
 
-    ///
-    if (openOptionDayOfWeek){
-        ////logica para empezar
-    }
 }
 
 @Composable
-fun CircleWithArrow(viewModel: AddHabitViewModels) {
+fun CircleWithArrow(
+    viewModel: AddHabitViewModels,
+    clickOption: MutableState<Boolean>
+) {
 
     Box(
         modifier = Modifier
@@ -111,10 +116,23 @@ fun CircleWithArrow(viewModel: AddHabitViewModels) {
                 ),
             color = Color.DarkGray // Ajusta el color del círculo según tus necesidades
         ) {
-            when {
-
+            when (clickOption.value) {
+                true -> TildeCorrecto()
+                else -> {}
             }
         }
 
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun OptionDateOfWeekPreview(){
+    OptionDateOfWeek(
+        viewModel = AddHabitViewModels(),
+        circleWitArrow = {view,state-> CircleWithArrow(view,state) },
+        selectedDayOfWeek = { /*TODO*/ },
+        textForTitle = "Toda la semana",
+        desplegable = false
+    )
 }

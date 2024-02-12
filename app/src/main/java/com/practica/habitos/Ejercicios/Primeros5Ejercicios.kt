@@ -1,4 +1,4 @@
-package com.practica.habitos.ui.theme.components.AddHabit
+package com.practica.habitos.Ejercicios
 
 import kotlin.math.sqrt
 
