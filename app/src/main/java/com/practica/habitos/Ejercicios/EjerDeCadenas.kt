@@ -1,5 +1,7 @@
 package com.practica.habitos.Ejercicios
 
+import kotlin.math.abs
+
 /*1)
  * Escribe un programa que muestre por consola (con un print) los
  * números de 1 a 100 (ambos incluidos y con un salto de línea entre
@@ -241,4 +243,70 @@ fun esPalindromo(texto : String):Boolean{
  * - Si una de las dos cadenas de texto no representa una fecha correcta se
  *   lanzará una excepción.
  */
+//si es absoluto no importa la si la fecha 1 es menor o mayor a la fecha 2
 
+class Fecha(
+     private var dia:Int,
+     private var mes:Int,
+     private var anio:Int
+){
+    constructor(fecha: String) : this(0,0,0) {
+        val partesFecha = fecha.split('/')
+        require(partesFecha.size == 3)
+
+        this.dia = partesFecha[0].toInt()
+        this.mes = partesFecha[1].toInt()
+        this.anio = partesFecha[2].toInt()
+
+    }
+    fun getDia():Int = this.dia
+    fun getMes():Int = this.mes
+    fun getAnio():Int = this.anio
+}
+fun cantidadDeDiasEntreDosFechas(fecha1: String,fecha2: String): Int{
+    var cantDiasFecha1: Int = 0
+    var cantDiasFecha2:Int = 0
+    val fecha1Int = Fecha(fecha1)
+    val fecha2Int = Fecha(fecha2)
+    val anioBase = 1601 ///ponemos el año base cen 1601 calendario gregoranio
+
+    val cantAniosFecha1:Int = fecha1Int.getAnio() - anioBase
+    val cantAniosFecha2:Int = fecha2Int.getAnio() - anioBase
+
+    cantDiasFecha1 += (cantAniosFecha1 * 365 + cantAniosFecha1/4 - cantAniosFecha1/100 + cantAniosFecha1/400)
+    cantDiasFecha2 += (cantAniosFecha2 * 365 + cantAniosFecha2/4 - cantAniosFecha2/100 + cantAniosFecha2/400)
+
+    if(fecha1Int.getMes() > 1)
+        for(mes in 1..(fecha1Int.getMes()-1))
+            cantDiasFecha1+= cantidadDeDiasXMes(mes,fecha1Int.getAnio())
+    if(fecha2Int.getMes() > 1)
+        for(mes in 1..(fecha2Int.getMes()-1))
+            cantDiasFecha2+= cantidadDeDiasXMes(mes,fecha2Int.getAnio())
+
+    cantDiasFecha1+=fecha1Int.getDia()
+    cantDiasFecha2+=fecha2Int.getDia()
+
+    return abs(cantDiasFecha1 - cantDiasFecha2)
+}
+fun cantidadDeDiasXMes(mes : Int,anio: Int): Int{
+    val cantidadDeDiasXMes = listOf<Int>(
+        31,28,31,20,31,30,31,31,30,31,30,31
+    )
+    return if(mes == 2){
+         cantidadDeDiasXMes[mes-1] + esBisiesto(anio)
+    }else {
+        cantidadDeDiasXMes[mes-1]
+    }
+
+}
+
+fun esBisiesto(anio: Int): Int {
+    return if((anio % 400 == 0 || anio % 100 == 0) && (anio % 4 == 0)) 1 else 0
+}
+
+fun main(){
+    val fecha1 = "22/12/2024"
+    val fecha2 = "20/12/2024"
+
+    println("cantidad de dias de diferencia(2) = ${cantidadDeDiasEntreDosFechas(fecha1,fecha2)}")
+}
