@@ -310,3 +310,13 @@ fun main(){
 
     println("cantidad de dias de diferencia(2) = ${cantidadDeDiasEntreDosFechas(fecha1,fecha2)}")
 }
+
+/*Dado un conjunto de números, devuelve el inverso aditivo de cada uno.
+Todo lo positivo se vuelve negativo y lo negativo se vuelve positivo.
+
+invertir([1,2,3,4,5]) == [-1,-2,-3,-4,-5]
+invertir([1,-2,3,-4,5]) == [-1,2,-3,4,-5]
+invertir([]) == []
+ */
+
+////

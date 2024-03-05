@@ -141,3 +141,71 @@ fun cantidadDeDigitos(num: Int): Int {
     return cantDigitos
 }
 
+/*Dado un conjunto de números, devuelve el inverso aditivo de cada uno.
+Todo lo positivo se vuelve negativo y lo negativo se vuelve positivo.
+
+invertir([1,2,3,4,5]) == [-1,-2,-3,-4,-5]
+invertir([1,-2,3,-4,5]) == [-1,2,-3,4,-5]
+invertir([]) == []
+ */
+fun invertirNumeros(arr: IntArray) : IntArray {
+    ///debo recorrer cada array y multiplicarlo x-1
+    var arrayInvertido = IntArray(arr.size)
+
+     arr.forEachIndexed { index, value ->
+        arrayInvertido[index] = value*-1
+    }
+    return arrayInvertido
+}
+/*Cree una función que tome un número romano como argumento y devuelva su valor como un número entero
+decimal. No es necesario validar la forma del número romano.
+Los números romanos modernos se escriben expresando cada dígito decimal del número que se va a codificar por separado, comenzando
+ con el dígito más a la izquierda y omitiendo los ceros. Así, 1990 se representa como "MCMXC" (1000 = M, 900 = CM, 90 = XC) y 2008
+ se representa como "MMVIII" (2000 = MM, 8 = VIII). El número romano de 1666, "MDCLXVI", utiliza cada letra en orden descendente.
+
+ */
+
+fun decode(str : String):Int{
+    val tamStr = str.length
+
+    when(tamStr){
+        0->return 0
+        1-> return symbol(str[0])
+        else->{
+            var i = tamStr-1
+            var result = symbol(str[i])
+            var prevValue = result
+            i--
+
+            while(i >= 0){
+                val act = symbol(str[i])
+                if(act < prevValue){
+                    result -= act
+                }else{
+                    result += act
+                }
+                prevValue = act
+                i--
+            }
+            return result
+        }
+    }
+
+}
+fun symbol(letra:Char): Int {
+    val mapDeSymbolos = mapOf(
+        'M' to 1000,
+        'D' to 500,
+        'C' to 100,
+        'L' to 50,
+        'X' to 10,
+        'V' to 5,
+        'I' to 1
+    )
+
+    return mapDeSymbolos[letra]!!
+}
+
+fun main(){
+
+}
