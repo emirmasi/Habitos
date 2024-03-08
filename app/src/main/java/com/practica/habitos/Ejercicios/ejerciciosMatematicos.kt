@@ -1,7 +1,5 @@
 package com.practica.habitos.Ejercicios
 
-import kotlin.math.sqrt
-
 
 /*
  * Escribe un programa que imprima los 50 primeros números de la sucesión
@@ -55,61 +53,9 @@ fun esPrimo(num:Int):Boolean{
     return true
 }
 
-/*
- * Crea una única función (importante que sólo sea una) que sea capaz
- * de calcular y retornar el área de un polígono.
- * - La función recibirá por parámetro sólo UN polígono a la vez.
- * - Los polígonos soportados serán Triángulo, Cuadrado y Rectángulo.
- * - Imprime el cálculo del área de un polígono de cada tipo.
- */
 
-fun calcularAreaPoligono(poligono : Poligono):Float{
-    return poligono.calcularArea()
-}
-abstract class Poligono///puede ser una interface tranquilamente
-{
-    abstract fun calcularArea():Float
-}
 
-class Triangulo(
-    private val a:Float,
-    private val b:Float,
-    private val c:Float
-) : Poligono()
-{
-    fun esValido():Boolean{
-        if(a+b>c)
-            if(b+c>a)
-                if(a + c >b)
-                    return true
-        return false
-    }
-    override fun calcularArea(): Float {
-        val semiperimetro = (a+b+c)/2
-        ///calcular el area de un triangulo
-        return sqrt((semiperimetro)*(semiperimetro-a)*(semiperimetro-b)*(semiperimetro-c))
-    }
 
-}
-class Cuadrado(
-    private val lado:Float
-) : Poligono()
-{
-    override fun calcularArea(): Float {
-        return lado.times(lado)
-    }
-
-}
-class Rectangulo(
-    private val base : Float,
-    private val altura: Float
-) : Poligono()
-{
-    override fun calcularArea(): Float {
-        return base.times(altura)
-    }
-
-}
 /*
  * Escribe una función que calcule si un número dado es un número de Armstrong
  * (o también llamado narcisista).
