@@ -205,7 +205,3 @@ fun symbol(letra:Char): Int {
 
     return mapDeSymbolos[letra]!!
 }
-
-fun main(){
-
-}

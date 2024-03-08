@@ -304,6 +304,34 @@ fun esBisiesto(anio: Int): Int {
     return if((anio % 400 == 0 || anio % 100 == 0) && (anio % 4 == 0)) 1 else 0
 }
 
+/*Escriba una función que tome una cadena de una o más palabras y devuelva la misma cadena,
+ pero con todas las palabras que tengan cinco o más letras invertidas (como el nombre de este Kata).
+ Las cadenas pasadas consistirán únicamente en letras y espacios. Los espacios se incluirán únicamente
+ cuando esté presente más de una palabra.
+
+Ejemplos:
+
+"Hola compañeros guerreros" --> "Hola wollef sroirraw"
+"Esto es una prueba --> "Esto es una prueba"
+"Esta es otra prueba" --> "Esta es la prueba de Rehtona
+
+ */
+fun spinWords(sentence: String): String {
+
+    val cadenaPartida = sentence.split(' ')
+    var resultado = StringBuilder()
+
+    for(palabra in cadenaPartida){
+        if(palabra.all{ it.isLetter()} && palabra.length>=5)
+            resultado.append(palabra.reversed()).append(" ")
+        else
+            resultado.append(palabra).append(" ")
+    }
+
+    return resultado.trim().toString()
+}
+
+
 fun main(){
     val fecha1 = "22/12/2024"
     val fecha2 = "20/12/2024"
