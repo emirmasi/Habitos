@@ -21,6 +21,7 @@ fun BottomBar(
 ){
     //está obteniendo la entrada actual en la pila de retroceso de la navegación
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+
     val menu_items = listOf(
         Screens.Hoy,
         Screens.Habits,

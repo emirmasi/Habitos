@@ -43,7 +43,6 @@ fun Contenido(
     navController: NavHostController,
 ){
     Scaffold(
-
         bottomBar = { BottomBar(navController = navController)},
         floatingActionButton = {
                 FloatingActionButton(
