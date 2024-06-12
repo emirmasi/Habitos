@@ -4,8 +4,10 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -19,6 +21,7 @@ fun BottomBar(
 ){
     //está obteniendo la entrada actual en la pila de retroceso de la navegación
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+
     val menu_items = listOf(
         Screens.Hoy,
         Screens.Habits,
@@ -26,11 +29,11 @@ fun BottomBar(
     )
 
     BottomAppBar(
+        containerColor = BackgrounBottomBar,
         contentColor = BackgrounBottomBar
     ) {
         NavigationBar(
-            containerColor = BackgrounBottomBar,
-            contentColor = BackgrounBottomBar
+            containerColor = BackgrounBottomBar
         ) {
             menu_items.forEach {item->
                 NavigationBarItem(
@@ -42,7 +45,11 @@ fun BottomBar(
                             contentDescription = "",
                             tint = IconColor
                         )
-                    }
+                    },
+                    label = { Text(
+                        text = item.route,
+                        color = Color.White
+                    )}
                 )
             }
 
