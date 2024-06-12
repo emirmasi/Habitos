@@ -26,7 +26,6 @@ import com.practica.habitos.Domain.utils.currentRoute
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MenuLateral(
     navController: NavHostController,
