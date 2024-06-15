@@ -109,3 +109,13 @@ w
 G.idea/sonarlint/issuestore/3/7/372adc722f5cf870e64d417251f5bab5bcd16e41,6\8\68ce3141ff42df728d4afa9a334c259b3b78e152
 w
 G.idea/sonarlint/issuestore/b/3/b362a06579879dc8590d53422bdee04bc55e5178,8\e\8e14a3aa3cad00203804fcdc386c11f25b19329d
+ç
+]app/src/main/java/com/practica/habitos/ui/theme/components/HoyScreenComponent/CalendarItem.kt,c\c\cc9a25504c9099fd1ade06894fb9235e6ac56f57
+é
+^app/src/main/java/com/practica/habitos/ui/theme/components/HoyScreenComponent/ItemHabitCard.kt,2\9\293206ec037df5736b38a12179757d2cde716c25
+ò
+happ/src/main/java/com/practica/habitos/ui/theme/components/HoyScreenComponent/CircleWithArrowAndCross.kt,a\6\a6899500980398950a3bdf211b2d14e1a82b1c32
+@
+build.gradle.kts,d\b\dbcff70658daf80b53ce624f6adcaa529df5ed8d
+X
+(gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e

@@ -1,5 +1,6 @@
 package com.practica.habitos.Data.Models
 
+///podria hacer que completed pueda ser null
 class Habito(
     val habito: String,
     val descripcion:String,
@@ -7,5 +8,5 @@ class Habito(
     val fechaDeInicio:DateItem,
     val fechaDeFin:DateItem,
     val diasARealizarloDeLaSemana:Set<DIASDELASEMANA>,///esto deberia ser un DayOfWeek
-    var completed :Boolean
+    var completed :Boolean? = null
 )

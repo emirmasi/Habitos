@@ -10,11 +10,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,19 +31,20 @@ import com.practica.habitos.Data.Models.DateItem
 import com.practica.habitos.Data.Models.Habito
 import com.practica.habitos.ui.theme.BackgroundHoyScree
 import com.practica.habitos.ui.theme.IconCategories
-import com.practica.habitos.ui.theme.Screen.HoyScreen.CircleWithArrowAndCross
-import com.practica.habitos.ui.theme.Text
 import java.time.DayOfWeek
 
 ///todo:mejorar , mostrar icono , titulo , y una animacion para ver mas detalles , descripcion , fecha de inicio y de fin y ademas boton para eliminar y editar
 @Composable
-fun ItemCard(habito: Habito) {
+fun ItemCard(
+    habito: Habito
+) {
+    // hay que declarar una variable is expanded
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(all = 5.dp)
             .clickable {
-
+                       ///deberiamos levarnos a una pantalla para editar o eliminar el habito
             },
     ) {
         Row(
@@ -60,11 +62,11 @@ fun ItemCard(habito: Habito) {
             ){
                 Icon(
                     imageVector = habito.categoria.icono,
-                    contentDescription = habito.descripcion,
+                    contentDescription = habito.habito,
                     modifier = Modifier
-                        .size(45.dp)
+                        .size(50.dp)
                         .clip(RoundedCornerShape(16.dp))
-                        .padding(horizontal = 3.dp)
+                        .padding(horizontal = 3.dp , vertical = 3.dp)
                         .background(habito.categoria.color),
                     tint = IconCategories
                 )
@@ -78,19 +80,20 @@ fun ItemCard(habito: Habito) {
                     text = habito.habito,
                     textAlign = TextAlign.Start,
                     fontWeight = FontWeight.Bold,
-                    color = Text
+                    color = Color.Gray
                 )
             }
             Box(
                 modifier = Modifier
-                    .padding(2.dp),
+                    .padding(10.dp),
                 contentAlignment = Alignment.Center
             ){
-                CircleWithArrowAndCross(size = 30,habito)
+                CircleWithArrowAndCross(habito)
                 ///aca hay que llevar el habito devuelta para ver si se modifico
             }
 
         }
+        HorizontalDivider()
     }
 }
 
