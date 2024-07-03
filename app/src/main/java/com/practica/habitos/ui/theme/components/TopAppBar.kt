@@ -16,6 +16,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,7 +27,6 @@ import com.practica.habitos.Data.Models.DateItem
 import com.practica.habitos.ui.theme.BackgroundHoyScree
 import com.practica.habitos.ui.theme.IconColor
 import com.practica.habitos.ui.theme.Rosadito
-import com.practica.habitos.ui.theme.Screen.HoyScreen.HoyScreenViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.time.Instant
@@ -38,18 +38,19 @@ import java.time.ZoneId
 fun TopBar(
     drawerState: DrawerState,
     scope:CoroutineScope,
-    viewModel: HoyScreenViewModel
-){
+    hoy: State<DateItem?>,
+    actualizarHoy: (DateItem) -> Unit,
+)  {
     val state = rememberDatePickerState()
     var showDialog by remember{
         mutableStateOf(false)
     }
 
-
+    val fechaDeHoy = hoy.value!!.toConvert()
     TopAppBar(
         title = {
             Text(
-                text = "${viewModel.hoy.value?.toConvert()}",
+                text = fechaDeHoy,
                 color = com.practica.habitos.ui.theme.Text
             )
                 },
@@ -92,13 +93,13 @@ fun TopBar(
                                 date?.let {
                                     val instance: LocalDate = Instant.ofEpochMilli(date).atZone(
                                         ZoneId.of("UTC")).toLocalDate()
-                                    viewModel.actualizarHoy(
+                                    actualizarHoy(
                                         DateItem(
                                             instance.dayOfMonth,
                                             instance.month.value,
                                             instance.year,
-                                            instance.dayOfWeek
-                                        )
+                                            instance.dayOfWeek,
+                                        ),
                                     )
                                 }
                             }

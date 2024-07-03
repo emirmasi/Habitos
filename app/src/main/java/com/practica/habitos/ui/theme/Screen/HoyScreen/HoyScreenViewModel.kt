@@ -9,35 +9,35 @@ import java.time.LocalDate
 
 class HoyScreenViewModel : ViewModel()
 {
-    val fechaActual = LocalDate.now()
-    val habitos = listOf<UserHabitLog>(
-
-    )
-    var dateInRange = mutableListOf<DateItem>()
-
     private val _hoy = mutableStateOf<DateItem?>(null)
     val hoy: State<DateItem?> = _hoy
 
+    private var _dateInRange = mutableStateOf<List<DateItem>>(emptyList())
+    val dateInRange: State<List<DateItem>> = _dateInRange
+
+    val fechaActual = LocalDate.now()
+
+    private val _listaDehabitos = mutableStateOf<List<UserHabitLog>>(emptyList())
+    val habitos:State<List<UserHabitLog>> = _listaDehabitos
+
     init {
-        dateInRange = loadDateInRange()
+        loadDateInRange()
         actualizarHoy(convertLocalDateToDateItem(fechaActual))
     }
 
     fun actualizarHoy(hoyNew:DateItem){
         _hoy.value = hoyNew
     }
-    fun loadDateInRange(): MutableList<DateItem> {
+    fun loadDateInRange() {
         val inicio = LocalDate.now().minusMonths(3)
         val fin = LocalDate.now().plusMonths(3)
-        return getDayBetween(inicio,fin)
+        _dateInRange.value =  getDayBetween(inicio,fin)
     }
 
-    fun getDayBetween(inicio: LocalDate, fin: LocalDate): MutableList<DateItem> {
-
+    fun getDayBetween(inicio: LocalDate, fin: LocalDate): List<DateItem> {
         val datesBetweenStarAndEnd = mutableListOf<DateItem>()
         var fechaActual = inicio
         while (!fechaActual.isAfter(fin)){
-
             datesBetweenStarAndEnd.add(convertLocalDateToDateItem(fechaActual))
             fechaActual = fechaActual.plusDays(1)
         }
@@ -48,8 +48,7 @@ class HoyScreenViewModel : ViewModel()
     }
 
     fun returnTodayDateInRange():DateItem{
-
-        val datefind: DateItem = dateInRange.find { date->
+        val datefind: DateItem = dateInRange.value.find { date->
             date.day == fechaActual.dayOfMonth &&
                     date.month == fechaActual.month.value &&
                     date.year == fechaActual.year &&
