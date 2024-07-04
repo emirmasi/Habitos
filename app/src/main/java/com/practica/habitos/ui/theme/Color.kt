@@ -76,7 +76,7 @@ val surfaceContainerHighestDark = Color(0xFF3D3233)
 
 ///colores de base
 val Rosadito = Color(0xFFB61D51)
-val RosaditoMasClaro = Color(0xFFB8315E)
+val RosaditoMasClaro = Color(0xFFDD5885)
 val BackgroundHoyScree = Color(0xFF201F20)
 val BackgrounBottomBar = Color(0xFF3C383C)
 val Text = Color(0xFFF7F3F7)
