@@ -1,4 +1,4 @@
-package com.practica.habitos.ui.theme.components.categories
+package com.practica.habitos.ui.components.categories
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.practica.habitos.Data.Models.Categoria
+import com.practica.habitos.Domain.Models.Categoria
 
 @Composable
 fun CategoryDisplay(

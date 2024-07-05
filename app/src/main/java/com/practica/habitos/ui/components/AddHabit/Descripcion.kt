@@ -1,4 +1,4 @@
-package com.practica.habitos.ui.theme.components.AddHabit
+package com.practica.habitos.ui.components.AddHabit
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.practica.habitos.ui.theme.BackgroundHoyScree
 import com.practica.habitos.ui.theme.Rosadito
-import com.practica.habitos.ui.theme.Screen.AddHabitScreen.AddHabitViewModels
+import com.practica.habitos.ui.screen.addHabitScreen.AddHabitViewModels
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,4 +1,4 @@
-package com.practica.habitos.ui.screen.components.AddHabit
+package com.practica.habitos.ui.components.AddHabit
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,15 +21,12 @@ import com.practica.habitos.ui.screen.addHabitScreen.AddHabitViewModels
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DescripcionHabito(viewModels: AddHabitViewModels) {
+fun NameHabit(viewModels: AddHabitViewModels) {
 
     OutlinedTextField(
-        value = viewModels.descripcion.value,
-        onValueChange = { newDescripcion ->
-            if (newDescripcion.count { it == '\n' } < 3)
-            {
-                viewModels.setDescription(newDescripcion)
-            }
+        value = viewModels.selectedNameHabit.value,
+        onValueChange = { newHabit ->
+            viewModels.setNameHabit(newHabit)
         },
         modifier =
         Modifier
@@ -44,7 +41,7 @@ fun DescripcionHabito(viewModels: AddHabitViewModels) {
         ),
         placeholder = {
             Text(
-                text = "descripcion",
+                text = "nombre del habito",
                 fontWeight = FontWeight.Bold,
                 color = Rosadito,
             )
@@ -56,6 +53,5 @@ fun DescripcionHabito(viewModels: AddHabitViewModels) {
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
         ),
-        maxLines = 3,
     )
 }

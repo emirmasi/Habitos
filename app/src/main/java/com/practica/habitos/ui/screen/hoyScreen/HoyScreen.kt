@@ -1,6 +1,5 @@
 package com.practica.habitos.ui.screen.hoyScreen
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -18,13 +17,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.practica.habitos.ui.screen.components.HoyScreenComponent.CalendarItem
-import com.practica.habitos.ui.screen.components.HoyScreenComponent.ItemCard
-import com.practica.habitos.ui.screen.components.navigationComponent.MenuLateral
-import com.practica.habitos.ui.screen.components.navigationComponent.TopBar
+import com.practica.habitos.ui.components.HoyScreenComponent.CalendarItem
+import com.practica.habitos.ui.components.HoyScreenComponent.ItemCard
+import com.practica.habitos.ui.components.navigationComponent.MenuLateral
+import com.practica.habitos.ui.components.navigationComponent.TopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HoyScreenContent(
     navController: NavHostController,

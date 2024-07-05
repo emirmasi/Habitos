@@ -1,4 +1,4 @@
-package com.practica.habitos.ui.screen.components.navigationComponent
+package com.practica.habitos.ui.components.navigationComponent
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController

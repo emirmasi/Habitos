@@ -23,8 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.practica.habitos.ui.screen.components.navigationComponent.BottomBar
-import com.practica.habitos.ui.screen.components.navigationComponent.NavigationComponent
+import com.practica.habitos.ui.components.navigationComponent.BottomBar
+import com.practica.habitos.ui.components.navigationComponent.NavigationComponent
 import com.practica.habitos.ui.theme.IconColor
 import com.practica.habitos.ui.theme.Rosadito
 ///aca hacemos el las navegaciones el top

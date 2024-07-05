@@ -1,4 +1,4 @@
-package com.practica.habitos.ui.screen.components.HoyScreenComponent
+package com.practica.habitos.ui.components.HoyScreenComponent
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box

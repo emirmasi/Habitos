@@ -1,4 +1,4 @@
-package com.practica.habitos.ui.screen.components.navigationComponent
+package com.practica.habitos.ui.components.navigationComponent
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
