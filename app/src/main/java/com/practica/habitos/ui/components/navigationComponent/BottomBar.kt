@@ -2,58 +2,62 @@ package com.practica.habitos.ui.components.navigationComponent
 
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.practica.habitos.Domain.Models.Screens
-import com.practica.habitos.ui.theme.BackgrounBottomBar
-import com.practica.habitos.ui.theme.IconColor
+import com.practica.habitos.Domain.Models.NavigationRoutes
 
 @Composable
-fun BottomBar(
-    navController: NavHostController
-){
-    //está obteniendo la entrada actual en la pila de retroceso de la navegación
+fun BottomBar(navController: NavHostController) {
+    // está obteniendo la entrada actual en la pila de retroceso de la navegación
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
-    val menu_items = listOf(
-        Screens.Hoy,
-        Screens.Habits,
-        Screens.Categories
-    )
+    val menuItems =
+        listOf(
+            NavigationRoutes.Hoy,
+            NavigationRoutes.Habits,
+            NavigationRoutes.Categories,
+            NavigationRoutes.Timer,
+        )
 
     BottomAppBar(
-        containerColor = BackgrounBottomBar,
-        contentColor = BackgrounBottomBar
+        contentColor = MaterialTheme.colorScheme.secondary,
     ) {
         NavigationBar(
-            containerColor = BackgrounBottomBar
+            contentColor = MaterialTheme.colorScheme.secondary,
         ) {
-            menu_items.forEach {item->
+            menuItems.forEach { item ->
                 NavigationBarItem(
                     selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == item.route } == true,
                     onClick = { navController.navigate(item.route) },
                     icon = {
                         Icon(
-                            imageVector = item.icon,
+                            painter = painterResource(id = item.icon),
                             contentDescription = "",
-                            tint = IconColor
                         )
                     },
-                    label = { Text(
-                        text = item.route,
-                        color = Color.White
-                    )}
+                    label = {
+                        Text(
+                            text = item.route,
+                        )
+                    },
                 )
             }
-
         }
     }
+}
 
+@Preview(showBackground = true)
+@Composable
+fun BottomBarPreview() {
+    BottomBar(navController = NavHostController(LocalContext.current))
 }

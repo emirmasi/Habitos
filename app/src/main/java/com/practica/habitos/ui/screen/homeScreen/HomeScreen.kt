@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.ExperimentalMaterial3Api
-
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -27,60 +25,57 @@ import com.practica.habitos.ui.components.navigationComponent.BottomBar
 import com.practica.habitos.ui.components.navigationComponent.NavigationComponent
 import com.practica.habitos.ui.theme.IconColor
 import com.practica.habitos.ui.theme.Rosadito
-///aca hacemos el las navegaciones el top
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(){
+fun HomeScreen() {
     val controller = rememberNavController()
-    Contenido(navController = controller)
+    HomeScreenContent(navController = controller)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun Contenido(
-    navController: NavHostController,
-){
+fun HomeScreenContent(navController: NavHostController) {
     Scaffold(
         bottomBar = { BottomBar(navController = navController) },
-            floatingActionButton = {
-                FloatingActionButton(
-                    modifier = Modifier
+        floatingActionButton = {
+            FloatingActionButton(
+                modifier =
+                    Modifier
                         .size(50.dp),
-                    shape = MaterialTheme.shapes.medium,
-                    onClick = {
-                            ///aca agregamos un nuevo habito
-
-                    },
-                    containerColor = Rosadito
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = "Add",
-                        modifier = Modifier
+                shape = MaterialTheme.shapes.medium,
+                onClick = {
+                    // /aca agregamos un nuevo habito
+                },
+                containerColor = Rosadito,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Add",
+                    modifier =
+                        Modifier
                             .size(30.dp)
                             .clip(RoundedCornerShape(10.dp))
                             .background(Rosadito),
-                        tint = IconColor
-                    )
-                }
+                    tint = IconColor,
+                )
+            }
+        },
+    ) { paddingValues ->
+        Box(
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
+        ) {
+            NavigationComponent(navHostController = navController)
         }
-    ){paddingValues ->
-        Box (
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ){
-            NavigationComponent(navHostController = navController )
-        }
-
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun HomeScreenPreview(){
+fun HomeScreenPreview() {
     Surface {
         HomeScreen()
     }

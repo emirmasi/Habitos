@@ -7,53 +7,56 @@ import com.practica.habitos.Domain.Models.DateItem
 import com.practica.habitos.Domain.Models.UserHabitLog
 import java.time.LocalDate
 
-class HoyScreenViewModel : ViewModel()
-{
-    private val _hoy = mutableStateOf<DateItem?>(null)
-    val hoy: State<DateItem?> = _hoy
+class HoyScreenViewModel : ViewModel() {
+    private val _date = mutableStateOf(convertLocalDateToDateItem(LocalDate.now()))
+    val date: State<DateItem> = _date
 
     private var _dateInRange = mutableStateOf<List<DateItem>>(emptyList())
     val dateInRange: State<List<DateItem>> = _dateInRange
 
-    val fechaActual = LocalDate.now()
+    private val today = LocalDate.now()
 
     private val _listaDehabitos = mutableStateOf<List<UserHabitLog>>(emptyList())
-    val habitos:State<List<UserHabitLog>> = _listaDehabitos
+    val habitos: State<List<UserHabitLog>> = _listaDehabitos
 
     init {
         loadDateInRange()
-        actualizarHoy(convertLocalDateToDateItem(fechaActual))
     }
 
-    fun actualizarHoy(hoyNew: DateItem){
-        _hoy.value = hoyNew
+    fun updateDate(newDate: DateItem) {
+        _date.value = newDate
     }
+
     fun loadDateInRange() {
         val inicio = LocalDate.now().minusMonths(3)
         val fin = LocalDate.now().plusMonths(3)
-        _dateInRange.value =  getDayBetween(inicio,fin)
+        _dateInRange.value = getDayBetween(inicio, fin)
     }
 
-    fun getDayBetween(inicio: LocalDate, fin: LocalDate): List<DateItem> {
+    private fun getDayBetween(
+        inicio: LocalDate,
+        fin: LocalDate,
+    ): List<DateItem> {
         val datesBetweenStarAndEnd = mutableListOf<DateItem>()
         var fechaActual = inicio
-        while (!fechaActual.isAfter(fin)){
+        while (!fechaActual.isAfter(fin)) {
             datesBetweenStarAndEnd.add(convertLocalDateToDateItem(fechaActual))
             fechaActual = fechaActual.plusDays(1)
         }
         return datesBetweenStarAndEnd
     }
-    fun convertLocalDateToDateItem(fecha: LocalDate): DateItem {
-        return DateItem(fecha.dayOfMonth,fecha.month.value,fecha.year,fecha.dayOfWeek)
-    }
+
+    private fun convertLocalDateToDateItem(fecha: LocalDate): DateItem =
+        DateItem(fecha.dayOfMonth, fecha.month.value, fecha.year, fecha.dayOfWeek)
 
     fun returnTodayDateInRange(): DateItem {
-        val datefind: DateItem = dateInRange.value.find { date->
-            date.day == fechaActual.dayOfMonth &&
-                    date.month == fechaActual.month.value &&
-                    date.year == fechaActual.year &&
-                    date.dayOfWeek == fechaActual.dayOfWeek
-        }!!
+        val datefind: DateItem =
+            dateInRange.value.find { date ->
+                date.day == today.dayOfMonth &&
+                    date.month == today.month.value &&
+                    date.year == today.year &&
+                    date.dayOfWeek == today.dayOfWeek
+            }!!
         return datefind
     }
 }

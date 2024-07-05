@@ -16,9 +16,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.practica.habitos.Domain.Models.Screens
+import com.practica.habitos.Domain.Models.NavigationRoutes
 import com.practica.habitos.Domain.utils.currentRoute
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -28,22 +29,24 @@ fun MenuLateral(
     navController: NavHostController,
     drawerdState: DrawerState,
     scope: CoroutineScope,
-    contenido : @Composable () -> Unit
+    content : @Composable () -> Unit
 ){
-    val menu_Items = listOf(
-        Screens.Hoy,
-        Screens.Habits,
-        Screens.Categories
+    val menuItems = listOf(
+        NavigationRoutes.Hoy,
+        NavigationRoutes.Habits,
+        NavigationRoutes.Categories,
+        NavigationRoutes.Timer
     )
 
     ModalNavigationDrawer(
         drawerState = drawerdState,
         drawerContent = {
             ModalDrawerSheet{
-                menu_Items.forEach { item ->
+                /*aca va a ir un logo de la app */
+                menuItems.forEach { item ->
                     NavigationDrawerItem(
                         icon = {
-                                Icon(imageVector = item.icon, contentDescription = item.route)
+                                Icon(painter = painterResource(id = item.icon), contentDescription = null)
                             },
                         label = { Text(text = item.route) },
                         selected = currentRoute(navController = navController) == item.route,
@@ -54,12 +57,11 @@ fun MenuLateral(
                             navController.navigate(item.route)
                         }
                     )
-
                 }
             }
         }
     ) {
-        contenido()
+        content()
     }
 }
 

@@ -111,7 +111,7 @@ fun FechaDeFin(viewModels: AddHabitViewModels) {
                 contentAlignment = Alignment.Center
             ){
                 Text(
-                    text = if(viewModels.selectedFechaDeFin.value != null) "${viewModels.selectedFechaDeFin.value?.toConvert()}" else "",
+                    text = if(viewModels.selectedFechaDeFin.value != null) "${viewModels.selectedFechaDeFin.value?.convertToString()}" else "",
                     fontWeight = FontWeight.Bold,
                     fontSize= 18.sp ,
                     color = Color.Black,

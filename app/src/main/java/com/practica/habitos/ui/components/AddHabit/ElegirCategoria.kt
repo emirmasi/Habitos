@@ -23,16 +23,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import com.practica.habitos.Domain.Models.Screens
+import com.practica.habitos.R
+import com.practica.habitos.ui.components.categories.CategoryDisplay
+import com.practica.habitos.ui.screen.addHabitScreen.AddHabitViewModels
 import com.practica.habitos.ui.theme.BackgroundHoyScree
 import com.practica.habitos.ui.theme.Rosadito
-import com.practica.habitos.ui.screen.addHabitScreen.AddHabitViewModels
-import com.practica.habitos.ui.components.categories.CategoryDisplay
 
 @Composable
 fun ElegirCategoria(viewModels: AddHabitViewModels) {
@@ -62,7 +63,7 @@ fun ElegirCategoria(viewModels: AddHabitViewModels) {
                     .padding(2.dp),
                 ){
                 Icon(
-                    imageVector = Screens.Categories.icon,
+                    painter = painterResource(id = R.drawable.icons_categorizar_50),
                     contentDescription = "categorias",
                     modifier = Modifier
                         .size(45.dp)

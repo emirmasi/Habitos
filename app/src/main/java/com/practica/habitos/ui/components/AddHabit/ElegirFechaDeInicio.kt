@@ -112,7 +112,7 @@ fun FechaDeInico(viewModels: AddHabitViewModels) {
                 contentAlignment = Alignment.Center
             ){
                 Text(
-                    text = if(viewModels.selectedFechaDeInicio.value != null) "${viewModels.selectedFechaDeInicio.value?.toConvert()}" else "",
+                    text = if(viewModels.selectedFechaDeInicio.value != null) "${viewModels.selectedFechaDeInicio.value?.convertToString()}" else "",
                     fontWeight = FontWeight.Bold,
                     fontSize= 18.sp ,
                     color = Color.Black,
