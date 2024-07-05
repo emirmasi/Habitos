@@ -14,13 +14,16 @@ class HoyScreenViewModel : ViewModel() {
     private var _dateInRange = mutableStateOf<List<DateItem>>(emptyList())
     val dateInRange: State<List<DateItem>> = _dateInRange
 
-    private val today = LocalDate.now()
+    val today = LocalDate.now()
 
     private val _listaDehabitos = mutableStateOf<List<UserHabitLog>>(emptyList())
     val habitos: State<List<UserHabitLog>> = _listaDehabitos
 
     init {
         loadDateInRange()
+    }
+    fun getToday(): DateItem{
+        return convertLocalDateToDateItem(today)
     }
 
     fun updateDate(newDate: DateItem) {

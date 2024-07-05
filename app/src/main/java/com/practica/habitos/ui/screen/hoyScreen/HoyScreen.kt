@@ -31,7 +31,14 @@ fun HoyScreenContent(
     // primer error pasarle el viewModel por parametro
     val drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-    MenuLateral(navController = navController, drawerdState = drawerState, scope = scope) {
+    /*tengo que enviarle el dia de hoy*/
+    val today = viewModel.getToday()
+    MenuLateral(
+        navController = navController,
+        drawerdState = drawerState,
+        scope = scope,
+        today = today,
+    ) {
         Scaffold(
             topBar = {
                 AppBar(
