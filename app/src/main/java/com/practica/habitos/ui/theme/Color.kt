@@ -2,7 +2,7 @@ package com.practica.habitos.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val primaryLight = Color(0xFFE91E63)
+val primaryLight = Color(0xFFDFBFC9)
 val onPrimaryLight = Color(0xFFFFFFFF)
 val primaryContainerLight = Color(0xFFFFD9DC)
 val onPrimaryContainerLight = Color(0xFF3B0713)
@@ -30,15 +30,9 @@ val scrimLight = Color(0xFF000000)
 val inverseSurfaceLight = Color(0xFF382E2F)
 val inverseOnSurfaceLight = Color(0xFFFFEDED)
 val inversePrimaryLight = Color(0xFFFFB2BA)
-val surfaceDimLight = Color(0xFFE7D6D7)
-val surfaceBrightLight = Color(0xFFFFF8F7)
-val surfaceContainerLowestLight = Color(0xFFFFFFFF)
-val surfaceContainerLowLight = Color(0xFFFFF0F0)
-val surfaceContainerLight = Color(0xFFFCEAEA)
-val surfaceContainerHighLight = Color(0xFFF6E4E5)
-val surfaceContainerHighestLight = Color(0xFFF0DEDF)
 
-val primaryDark = Color(0xFFFFB2BA)
+
+val primaryDark = Color(0xFF8B7477)
 val onPrimaryDark = Color(0xFF561D27)
 val primaryContainerDark = Color(0xFF72333C)
 val onPrimaryContainerDark = Color(0xFFFFD9DC)

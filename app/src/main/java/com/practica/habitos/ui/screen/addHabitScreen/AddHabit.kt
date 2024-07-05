@@ -19,11 +19,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.practica.habitos.ui.theme.BackgrounBottomBar
 import com.practica.habitos.ui.theme.BackgroundHoyScree
-import com.practica.habitos.ui.screen.components.AddHabit.DescripcionHabito
-import com.practica.habitos.ui.screen.components.AddHabit.ElegirCategoria
-import com.practica.habitos.ui.screen.components.AddHabit.FechaDeFin
-import com.practica.habitos.ui.screen.components.AddHabit.FechaDeInico
-import com.practica.habitos.ui.screen.components.AddHabit.NameHabit
+import com.practica.habitos.ui.components.AddHabit.DescripcionHabito
+import com.practica.habitos.ui.components.AddHabit.ElegirCategoria
+import com.practica.habitos.ui.components.AddHabit.FechaDeFin
+import com.practica.habitos.ui.components.AddHabit.FechaDeInico
+import com.practica.habitos.ui.components.AddHabit.NameHabit
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

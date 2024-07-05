@@ -1,6 +1,5 @@
 package com.practica.habitos.ui.screen.hoyScreen
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -18,48 +17,51 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.practica.habitos.ui.screen.components.HoyScreenComponent.CalendarItem
-import com.practica.habitos.ui.screen.components.HoyScreenComponent.ItemCard
-import com.practica.habitos.ui.screen.components.navigationComponent.MenuLateral
-import com.practica.habitos.ui.screen.components.navigationComponent.TopBar
+import com.practica.habitos.ui.components.HoyScreenComponent.CalendarItem
+import com.practica.habitos.ui.components.HoyScreenComponent.ItemCard
+import com.practica.habitos.ui.components.navigationComponent.AppBar
+import com.practica.habitos.ui.components.navigationComponent.MenuLateral
 
 @OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HoyScreenContent(
     navController: NavHostController,
-    viewModel: HoyScreenViewModel
-){
-    //primer error pasarle el viewModel por parametro
-    val drawerState : DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    viewModel: HoyScreenViewModel,
+) {
+    // primer error pasarle el viewModel por parametro
+    val drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-    MenuLateral(navController = navController, drawerdState = drawerState, scope = scope ) {
+    MenuLateral(navController = navController, drawerdState = drawerState, scope = scope) {
         Scaffold(
             topBar = {
-                TopBar(
+                AppBar(
                     drawerState = drawerState,
                     scope = scope,
-                    viewModel.hoy,
-                    ){dateItem->
-                    viewModel.actualizarHoy(dateItem)
+                    viewModel.date,
+                ) { dateItem ->
+                    viewModel.updateDate(dateItem)
                 }
-            }
-        ) {  paddingValues ->
-            Column(modifier = Modifier
-                .padding(paddingValues)
-            ){
-                ///hecho
+            },
+        ) { paddingValues ->
+            Column(
+                modifier =
+                    Modifier
+                        .padding(paddingValues),
+            ) {
+                // /hecho
                 CalendarItem(
                     dateInRange = viewModel.dateInRange,
                     returnTodayDateInRage = { viewModel.returnTodayDateInRange() },
-                    actualizarHoy =  { dateItem ->  viewModel.actualizarHoy(dateItem)}
+                    actualizarHoy = { dateItem -> viewModel.updateDate(dateItem) },
                 )
                 Spacer(modifier = Modifier.padding(bottom = 8.dp))
-                LazyColumn(modifier = Modifier
-                    .fillMaxHeight()
-                ){
-                    items(viewModel.habitos.value.size){ index->
-                        viewModel.habitos.value[index].habito.forEach {date->
+                LazyColumn(
+                    modifier =
+                        Modifier
+                            .fillMaxHeight(),
+                ) {
+                    items(viewModel.habitos.value.size) { index ->
+                        viewModel.habitos.value[index].habito.forEach { date ->
                             ItemCard(habito = date)
                         }
                     }
@@ -69,12 +71,11 @@ fun HoyScreenContent(
     }
 }
 
-///esto lo puedo mejorar con un checkbox de material 3
-
+// /esto lo puedo mejorar con un checkbox de material 3
 
 @Preview(showBackground = true)
 @Composable
-fun ItemsPreview(){
+fun ItemsPreview() {
     val navController = rememberNavController()
     HoyScreenContent(navController = navController, HoyScreenViewModel())
 }

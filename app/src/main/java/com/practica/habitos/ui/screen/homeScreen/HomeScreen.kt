@@ -21,64 +21,61 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.practica.habitos.ui.screen.components.navigationComponent.BottomBar
-import com.practica.habitos.ui.screen.components.navigationComponent.NavigationComponent
+import com.practica.habitos.ui.components.navigationComponent.BottomBar
+import com.practica.habitos.ui.components.navigationComponent.NavigationComponent
 import com.practica.habitos.ui.theme.IconColor
 import com.practica.habitos.ui.theme.Rosadito
 
-///aca hacemos el las navegaciones el top
-
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(){
+fun HomeScreen() {
     val controller = rememberNavController()
-    Contenido(navController = controller)
+    HomeScreenContent(navController = controller)
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun Contenido(
-    navController: NavHostController,
-){
+fun HomeScreenContent(navController: NavHostController) {
     Scaffold(
         bottomBar = { BottomBar(navController = navController) },
         floatingActionButton = {
-                FloatingActionButton(
-                    modifier = Modifier
+            FloatingActionButton(
+                modifier =
+                    Modifier
                         .size(50.dp),
-                    shape = MaterialTheme.shapes.medium,
-                    onClick = {
-                            ///aca agregamos un nuevo habito
-
-                    },
-                    containerColor = Rosadito
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = "Add",
-                        modifier = Modifier
+                shape = MaterialTheme.shapes.medium,
+                onClick = {
+                    // /aca agregamos un nuevo habito
+                },
+                containerColor = Rosadito,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Add",
+                    modifier =
+                        Modifier
                             .size(30.dp)
                             .clip(RoundedCornerShape(10.dp))
                             .background(Rosadito),
-                        tint = IconColor
-                    )
-                }
+                    tint = IconColor,
+                )
+            }
+        },
+    ) { paddingValues ->
+        Box(
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
+        ) {
+            NavigationComponent(navHostController = navController)
         }
-    ){paddingValues ->
-        Box (
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ){
-            NavigationComponent(navHostController = navController )
-        }
-
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun HomeScreenPreview(){
+fun HomeScreenPreview() {
     Surface {
         HomeScreen()
     }
