@@ -119,3 +119,9 @@ g
 7app/src/main/java/com/practica/habitos/ui/theme/Type.kt,2\b\2be65c488c2107c1d28ee7f92e8d7bf8231ac5a2
 €
 Papp/src/main/java/com/practica/habitos/ui/screen/hoyScreen/HoyScreenViewModel.kt,9\d\9d94f0bd733aa1ef9368990d734fcbb3d99ec07d
+w
+G.idea/sonarlint/issuestore/a/9/a9f4524e61f3f3b84bfd9ea02cccaea96e4ba091,3\b\3b3310ae2a332896015ad280fe83aed1252f156e
+n
+>app/src/main/java/com/practica/habitos/Domain/Models/Habito.kt,5\7\57d02b0ac2bc75deaca78c4cb50884296e23a248
+x
+Happ/src/androidTest/java/com/practica/habitos/ExampleInstrumentedTest.kt,e\8\e8d0d435eac4b94a19b7b5ab2dcce5378362fbc1
