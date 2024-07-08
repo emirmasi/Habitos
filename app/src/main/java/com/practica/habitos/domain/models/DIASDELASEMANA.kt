@@ -1,4 +1,4 @@
-package com.practica.habitos.Domain.Models
+package com.practica.habitos.domain.models
 
 enum class DIASDELASEMANA{
     LUNES,

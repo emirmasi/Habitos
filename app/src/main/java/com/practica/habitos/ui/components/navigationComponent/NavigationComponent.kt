@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.practica.habitos.Domain.Models.NavigationRoutes
+import com.practica.habitos.domain.models.NavigationRoutes
 import com.practica.habitos.ui.screen.categoryScreen.CategoriesScreenContent
 import com.practica.habitos.ui.screen.habitsScreen.HabitsScreenContent
 import com.practica.habitos.ui.screen.hoyScreen.HoyScreenContent

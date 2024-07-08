@@ -1,4 +1,4 @@
-package com.practica.habitos.ui.components.HoyScreenComponent
+package com.practica.habitos.ui.components.hoyScreenComponent
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -30,7 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.practica.habitos.Domain.Models.DateItem
+import com.practica.habitos.domain.models.DateItem
 import com.practica.habitos.ui.theme.RosaditoMasClaro
 import com.practica.habitos.ui.theme.onTertiaryLight
 import com.practica.habitos.ui.theme.secondaryLight

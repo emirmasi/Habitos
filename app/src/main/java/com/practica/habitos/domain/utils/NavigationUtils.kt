@@ -1,4 +1,4 @@
-package com.practica.habitos.Domain.utils
+package com.practica.habitos.domain.utils
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController

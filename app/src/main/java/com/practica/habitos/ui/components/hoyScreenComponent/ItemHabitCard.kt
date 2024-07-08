@@ -1,4 +1,4 @@
-package com.practica.habitos.ui.components.HoyScreenComponent
+package com.practica.habitos.ui.components.hoyScreenComponent
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,10 +25,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.practica.habitos.Domain.Models.Categoria
-import com.practica.habitos.Domain.Models.DIASDELASEMANA
-import com.practica.habitos.Domain.Models.DateItem
-import com.practica.habitos.Domain.Models.Habito
+import com.practica.habitos.domain.models.Categoria
+import com.practica.habitos.domain.models.DIASDELASEMANA
+import com.practica.habitos.domain.models.DateItem
+import com.practica.habitos.domain.models.Habito
 import com.practica.habitos.ui.theme.BackgroundHoyScree
 import com.practica.habitos.ui.theme.IconCategories
 import java.time.DayOfWeek

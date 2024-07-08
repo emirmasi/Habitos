@@ -1,4 +1,4 @@
-package com.practica.habitos.ui.components.HoyScreenComponent
+package com.practica.habitos.ui.components.hoyScreenComponent
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import com.practica.habitos.Domain.Models.Habito
+import com.practica.habitos.domain.models.Habito
 import com.practica.habitos.ui.theme.LightGreen
 import com.practica.habitos.ui.theme.LightRed
 

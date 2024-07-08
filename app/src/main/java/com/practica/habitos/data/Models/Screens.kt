@@ -1,4 +1,4 @@
-package com.practica.habitos.Data.Models // ktlint-disable package-name
+package com.practica.habitos.data.Models // ktlint-disable package-name
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.List

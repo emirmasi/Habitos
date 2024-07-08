@@ -1,8 +1,8 @@
-package com.practica.habitos.Data.Models
+package com.practica.habitos.data.Models
 
-import com.practica.habitos.Domain.Models.Categoria
-import com.practica.habitos.Domain.Models.DIASDELASEMANA
-import com.practica.habitos.Domain.Models.DateItem
+import com.practica.habitos.domain.models.Categoria
+import com.practica.habitos.domain.models.DIASDELASEMANA
+import com.practica.habitos.domain.models.DateItem
 
 class Habito(
     val habito: String,

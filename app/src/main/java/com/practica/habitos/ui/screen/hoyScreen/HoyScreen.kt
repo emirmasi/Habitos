@@ -28,9 +28,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.practica.habitos.R
-import com.practica.habitos.ui.components.HoyScreenComponent.CalendarItem
-import com.practica.habitos.ui.components.HoyScreenComponent.DatePickerComponent
-import com.practica.habitos.ui.components.HoyScreenComponent.ItemCard
+import com.practica.habitos.ui.components.hoyScreenComponent.CalendarItem
+import com.practica.habitos.ui.components.hoyScreenComponent.DatePickerComponent
+import com.practica.habitos.ui.components.hoyScreenComponent.ItemCard
 import com.practica.habitos.ui.components.navigationComponent.CustomTopAppBar
 import com.practica.habitos.ui.components.navigationComponent.MenuLateral
 

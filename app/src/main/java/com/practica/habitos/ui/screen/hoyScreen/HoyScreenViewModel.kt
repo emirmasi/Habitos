@@ -3,8 +3,8 @@ package com.practica.habitos.ui.screen.hoyScreen
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.practica.habitos.Domain.Models.DateItem
-import com.practica.habitos.Domain.Models.UserHabitLog
+import com.practica.habitos.domain.models.DateItem
+import com.practica.habitos.domain.models.UserHabitLog
 import java.time.LocalDate
 
 class HoyScreenViewModel : ViewModel() {

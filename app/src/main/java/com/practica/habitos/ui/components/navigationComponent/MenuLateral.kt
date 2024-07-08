@@ -19,9 +19,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.practica.habitos.Domain.Models.DateItem
-import com.practica.habitos.Domain.Models.NavigationRoutes
-import com.practica.habitos.Domain.utils.currentRoute
+import com.practica.habitos.domain.models.DateItem
+import com.practica.habitos.domain.models.NavigationRoutes
+import com.practica.habitos.domain.utils.currentRoute
 import com.practica.habitos.ui.theme.Rosadito
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

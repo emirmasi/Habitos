@@ -1,4 +1,4 @@
-package com.practica.habitos.ui.components.AddHabit
+package com.practica.habitos.ui.components.addHabit
 
 import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
@@ -11,7 +11,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import com.practica.habitos.Domain.Models.DateItem
+import com.practica.habitos.domain.models.DateItem
 import com.practica.habitos.ui.screen.addHabitScreen.AddHabitViewModels
 import java.time.Instant
 import java.time.LocalDate

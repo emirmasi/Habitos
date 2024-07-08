@@ -1,4 +1,4 @@
-package com.practica.habitos.ui.components.AddHabit
+package com.practica.habitos.ui.components.addHabit
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
