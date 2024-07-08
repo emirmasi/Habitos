@@ -29,6 +29,19 @@ class DateItem(
         )
         return mes.getValue(month)
     }
+
+    fun convertDayofWeekToString(dayofWeek:DayOfWeek):String{
+        val dia = mapOf(
+            1 to "Lunes",
+            2 to "Martes",
+            3 to "Miercoles",
+            4 to "Jueves",
+            5 to "Viernes",
+            6 to "Sabado",
+            7 to "Domingo"
+        )
+        return dia.getValue(dayOfWeek.value)
+    }
     fun esFechaMayor(fecha: DateItem?): Boolean {
         if (fecha != null) {
             return when {

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DrawerState
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
@@ -18,7 +19,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.practica.habitos.Domain.Models.DIASDELASEMANA
 import com.practica.habitos.Domain.Models.DateItem
 import com.practica.habitos.Domain.Models.NavigationRoutes
 import com.practica.habitos.Domain.utils.currentRoute
@@ -32,28 +32,23 @@ fun MenuLateral(
     drawerdState: DrawerState,
     scope: CoroutineScope,
     today: DateItem,
-    content: @Composable () -> Unit
-){
+    content: @Composable () -> Unit,
+)  {
     val menuItems = listOf(
         NavigationRoutes.Hoy,
-        NavigationRoutes.Habits,
         NavigationRoutes.Categories,
-        NavigationRoutes.Timer
-    )
-    val diasDeLaSemana = mapOf(
-        1 to DIASDELASEMANA.LUNES,
-        2 to DIASDELASEMANA.MARTES,
-        3 to DIASDELASEMANA.MIERCOLES,
-        4 to DIASDELASEMANA.JUEVES,
-        5 to DIASDELASEMANA.VIERNES,
-        6 to DIASDELASEMANA.SABADO,
-        7 to DIASDELASEMANA.DOMINGO
+        NavigationRoutes.Timer,
+        NavigationRoutes.Personalize,
+        NavigationRoutes.Setting,
+        NavigationRoutes.CopySegurity,
+        NavigationRoutes.Premium,
+        NavigationRoutes.Qualify,
+        NavigationRoutes.ContactUs,
     )
     ModalNavigationDrawer(
         drawerState = drawerdState,
         drawerContent = {
             ModalDrawerSheet{
-                /*aca va a ir un logo de la app */
                 Column(
                     modifier = Modifier
                         .padding(start = 10.dp),
@@ -65,7 +60,7 @@ fun MenuLateral(
                         fontSize = 28.sp,
                         )
                     Text(
-                        text = "${diasDeLaSemana[today.dayOfWeek.value]}",
+                        text = today.convertDayofWeekToString(today.dayOfWeek),
                         color = MaterialTheme.colorScheme.secondary,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 18.sp
@@ -77,20 +72,24 @@ fun MenuLateral(
                         fontSize = 18.sp,
                     )
                     Spacer(modifier = Modifier.padding(top = 10.dp))
+                    var count = 0
                     menuItems.forEach { item ->
+                        count++
                         NavigationDrawerItem(
                             icon = {
                                 Icon(
                                     painter = painterResource(id = item.icon),
-                                    contentDescription = null
+                                    contentDescription = null,
                                 )
                             },
-                            label = { Text(
-                                text = item.route.lowercase(),
-                                color = MaterialTheme.colorScheme.secondary,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.SemiBold
-                            ) },
+                            label = {
+                                Text(
+                                    text = item.title.lowercase(),
+                                    color = MaterialTheme.colorScheme.secondary,
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                )
+                            },
                             selected = currentRoute(navController = navController) == item.route,
                             onClick = {
                                 scope.launch {
@@ -99,9 +98,12 @@ fun MenuLateral(
                                 navController.navigate(item.route)
                             }
                         )
+                        if(count == 3){
+                            HorizontalDivider()
+                            count = 0
+                        }
                     }
                 }
-
             }
         }
     ) {

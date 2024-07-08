@@ -47,7 +47,7 @@ fun BottomBar(navController: NavHostController) {
                     },
                     label = {
                         Text(
-                            text = item.route,
+                            text = item.title,
                         )
                     },
                 )
