@@ -34,7 +34,7 @@ import com.practica.habitos.ui.components.HoyScreenComponent.ItemCard
 import com.practica.habitos.ui.components.navigationComponent.CustomTopAppBar
 import com.practica.habitos.ui.components.navigationComponent.MenuLateral
 
-/*todo:cambiar el viewModel por parametro*/
+// todo:cambiar el viewModel por parametro
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HoyScreenContent(
@@ -61,14 +61,14 @@ fun HoyScreenContent(
                 CustomTopAppBar(
                     drawerState = drawerState,
                     scope = scope,
-                    title = if(today.value.isDateActual()) "Hoy" else today.value.convertToString(),
+                    title = if (today.value.isDateActual()) "Hoy" else today.value.convertToString(),
                     actions = {
-                        //todo: implementar searchBar en el topAppBar
+                        // todo: implementar searchBar en el topAppBar
                         IconButton(onClick = { /*TODO*/ }) {
                             Icon(
                                 painter = painterResource(id = R.drawable.search_24),
                                 contentDescription = "search icon",
-                                modifier = Modifier.size(32.dp)
+                                modifier = Modifier.size(32.dp),
                             )
                         }
                         IconButton(
@@ -82,7 +82,7 @@ fun HoyScreenContent(
                                 modifier = Modifier.size(32.dp),
                             )
                             if (openDialogCalendar) {
-                                DatePickerComponent(onDissmiss = { openDialogCalendar = false }) { dateSelected->
+                                DatePickerComponent(onDissmiss = { openDialogCalendar = false }) { dateSelected ->
                                     viewModel.updateDate(dateSelected)
                                 }
                             }
@@ -93,13 +93,13 @@ fun HoyScreenContent(
                             Icon(
                                 painter = painterResource(id = R.drawable.help_24),
                                 contentDescription = null,
-                                modifier = Modifier.size(32.dp)
+                                modifier = Modifier.size(32.dp),
                             )
-                            if(openDialogHelp){
-                                //todo:componentes para la ayuda, dependiendo de la screen llamar a determinado componentes
+                            if (openDialogHelp) {
+                                // todo:componentes para la ayuda, dependiendo de la screen llamar a determinado componentes
                             }
                         }
-                    }
+                    },
                 )
             },
         ) { paddingValues ->

@@ -22,9 +22,8 @@ class HoyScreenViewModel : ViewModel() {
     init {
         loadDateInRange()
     }
-    fun getToday(): DateItem{
-        return convertLocalDateToDateItem(today)
-    }
+
+    fun getToday(): DateItem = convertLocalDateToDateItem(today)
 
     fun updateDate(newDate: DateItem) {
         _date.value = newDate

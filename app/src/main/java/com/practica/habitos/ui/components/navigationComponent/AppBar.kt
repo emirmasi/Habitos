@@ -69,5 +69,4 @@ fun CustomTopAppBar(
 fun AppBarPreview() {
     val drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-
 }

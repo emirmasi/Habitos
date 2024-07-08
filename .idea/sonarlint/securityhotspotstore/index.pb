@@ -125,3 +125,7 @@ n
 >app/src/main/java/com/practica/habitos/Domain/Models/Habito.kt,5\7\57d02b0ac2bc75deaca78c4cb50884296e23a248
 x
 Happ/src/androidTest/java/com/practica/habitos/ExampleInstrumentedTest.kt,e\8\e8d0d435eac4b94a19b7b5ab2dcce5378362fbc1
+Å
+Q.idea/sonarlint/securityhotspotstore/e/8/e8d0d435eac4b94a19b7b5ab2dcce5378362fbc1,b\2\b2f0cfebecde1a483c6df3fd999117aea34aedc3
+w
+G.idea/sonarlint/issuestore/e/8/e8d0d435eac4b94a19b7b5ab2dcce5378362fbc1,c\9\c97e6808f8b7023aa12f2d2eb2db6e40dbf13fc7

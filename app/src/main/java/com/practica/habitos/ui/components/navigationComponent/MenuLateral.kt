@@ -33,37 +33,39 @@ fun MenuLateral(
     scope: CoroutineScope,
     today: DateItem,
     content: @Composable () -> Unit,
-)  {
-    val menuItems = listOf(
-        NavigationRoutes.Hoy,
-        NavigationRoutes.Categories,
-        NavigationRoutes.Timer,
-        NavigationRoutes.Personalize,
-        NavigationRoutes.Setting,
-        NavigationRoutes.CopySegurity,
-        NavigationRoutes.Premium,
-        NavigationRoutes.Qualify,
-        NavigationRoutes.ContactUs,
-    )
+) {
+    val menuItems =
+        listOf(
+            NavigationRoutes.Hoy,
+            NavigationRoutes.Categories,
+            NavigationRoutes.Timer,
+            NavigationRoutes.Personalize,
+            NavigationRoutes.Setting,
+            NavigationRoutes.CopySegurity,
+            NavigationRoutes.Premium,
+            NavigationRoutes.Qualify,
+            NavigationRoutes.ContactUs,
+        )
     ModalNavigationDrawer(
         drawerState = drawerdState,
         drawerContent = {
-            ModalDrawerSheet{
+            ModalDrawerSheet {
                 Column(
-                    modifier = Modifier
-                        .padding(start = 10.dp),
+                    modifier =
+                        Modifier
+                            .padding(start = 10.dp),
                 ) {
                     Text(
                         text = "HabitNow",
                         color = Rosadito,
                         fontWeight = FontWeight.Bold,
                         fontSize = 28.sp,
-                        )
+                    )
                     Text(
                         text = today.convertDayofWeekToString(today.dayOfWeek),
                         color = MaterialTheme.colorScheme.secondary,
                         fontWeight = FontWeight.SemiBold,
-                        fontSize = 18.sp
+                        fontSize = 18.sp,
                     )
                     Text(
                         text = today.formatDate(),
@@ -96,16 +98,16 @@ fun MenuLateral(
                                     drawerdState.close()
                                 }
                                 navController.navigate(item.route)
-                            }
+                            },
                         )
-                        if(count == 3){
+                        if (count == 3) {
                             HorizontalDivider()
                             count = 0
                         }
                     }
                 }
             }
-        }
+        },
     ) {
         content()
     }
@@ -113,23 +115,23 @@ fun MenuLateral(
 
 @Preview(showBackground = true)
 @Composable
-fun MenuLateralPreview(){
+fun MenuLateralPreview() {
     Column {
         Text(
             text = "HabitNow",
             color = Rosadito,
             fontWeight = FontWeight.Bold,
             fontSize = 50.sp,
-            )
+        )
         Text(
             text = "Viernes",
             color = MaterialTheme.colorScheme.primary,
-            fontWeight = FontWeight.SemiBold
-            )
+            fontWeight = FontWeight.SemiBold,
+        )
         Text(
             text = "5 de julio de 2024",
             color = MaterialTheme.colorScheme.primary,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.SemiBold,
         )
     }
 }
