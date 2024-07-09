@@ -3,8 +3,8 @@ package com.practica.habitos.ui.screen.hoyScreen
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.practica.habitos.Domain.Models.DateItem
-import com.practica.habitos.Domain.Models.UserHabitLog
+import com.practica.habitos.domain.models.DateItem
+import com.practica.habitos.domain.models.UserHabitLog
 import java.time.LocalDate
 
 class HoyScreenViewModel : ViewModel() {
@@ -14,7 +14,7 @@ class HoyScreenViewModel : ViewModel() {
     private var _dateInRange = mutableStateOf<List<DateItem>>(emptyList())
     val dateInRange: State<List<DateItem>> = _dateInRange
 
-    private val today = LocalDate.now()
+    val today = LocalDate.now()
 
     private val _listaDehabitos = mutableStateOf<List<UserHabitLog>>(emptyList())
     val habitos: State<List<UserHabitLog>> = _listaDehabitos
@@ -22,6 +22,8 @@ class HoyScreenViewModel : ViewModel() {
     init {
         loadDateInRange()
     }
+
+    fun getToday(): DateItem = convertLocalDateToDateItem(today)
 
     fun updateDate(newDate: DateItem) {
         _date.value = newDate

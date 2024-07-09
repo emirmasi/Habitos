@@ -13,8 +13,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
-import com.practica.habitos.Domain.Models.Categoria
-import com.practica.habitos.Domain.Models.DateItem
+import com.practica.habitos.domain.models.Categoria
+import com.practica.habitos.domain.models.DateItem
 import java.time.LocalDate
 
 ///todo : inyectar hilt

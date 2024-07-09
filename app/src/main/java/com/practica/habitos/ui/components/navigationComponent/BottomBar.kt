@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.practica.habitos.Domain.Models.NavigationRoutes
+import com.practica.habitos.domain.models.NavigationRoutes
 
 @Composable
 fun BottomBar(navController: NavHostController) {
@@ -47,7 +47,7 @@ fun BottomBar(navController: NavHostController) {
                     },
                     label = {
                         Text(
-                            text = item.route,
+                            text = item.title,
                         )
                     },
                 )
