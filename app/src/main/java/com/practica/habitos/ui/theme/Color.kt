@@ -2,7 +2,7 @@ package com.practica.habitos.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val primaryLight = Color(0xFFDFBFC9)
+val primaryLight = Color(0xFFCCABB6)
 val onPrimaryLight = Color(0xFFFFFFFF)
 val primaryContainerLight = Color(0xFFFFD9DC)
 val onPrimaryContainerLight = Color(0xFF3B0713)
