@@ -1,8 +1,12 @@
 package com.practica.habitos.ui.screen.hoyScreen
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -31,6 +35,7 @@ import com.practica.habitos.R
 import com.practica.habitos.ui.components.hoyScreenComponent.CalendarItem
 import com.practica.habitos.ui.components.hoyScreenComponent.DatePickerComponent
 import com.practica.habitos.ui.components.hoyScreenComponent.ItemCard
+import com.practica.habitos.ui.components.hoyScreenComponent.SearchBoxComponent
 import com.practica.habitos.ui.components.navigationComponent.CustomTopAppBar
 import com.practica.habitos.ui.components.navigationComponent.MenuLateral
 
@@ -50,6 +55,10 @@ fun HoyScreenContent(
     var openDialogHelp by remember {
         mutableStateOf(false)
     }
+    val openSearchDialog  = remember {
+        mutableStateOf(false)
+    }
+    ///todo: problema de cuando se me abre el searchBoxComponent utiliza toda la pantalla y me desaparece el calendarItem
     MenuLateral(
         navController = navController,
         drawerdState = drawerState,
@@ -58,49 +67,75 @@ fun HoyScreenContent(
     ) {
         Scaffold(
             topBar = {
-                CustomTopAppBar(
-                    drawerState = drawerState,
-                    scope = scope,
-                    title = if (today.value.isDateActual()) "Hoy" else today.value.convertToString(),
-                    actions = {
-                        // todo: implementar searchBar en el topAppBar
-                        IconButton(onClick = { /*TODO*/ }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.search_24),
-                                contentDescription = "search icon",
-                                modifier = Modifier.size(32.dp),
-                            )
+                if(openSearchDialog.value){
+                    //todo:animacion para que se muestre de arriba hacia abajo
+                    AnimatedVisibility(
+                        visible = openSearchDialog.value,
+                        enter = slideInVertically(
+                            initialOffsetY = { fullHeight -> -fullHeight }, // Desliza desde arriba
+                            animationSpec = tween(durationMillis = 2000) // Duración de la animación
+                        )
+                    ) {
+                        SearchBoxComponent(
+                            label = "actividad",
+                            modifier = Modifier.height(90.dp),
+                            listOfCategory = emptyList(),
+                            onFilterForType = {},
+                            onFilterByCategory = {},
+                            onSaveFilter = {} ,
+                            onDeleteFilter = { /*TODO*/ },
+                            onBack = { result-> openSearchDialog.value = result},
+                        ) {result->
+                            //todo: aca debo llamar al viewModel para filtrar
                         }
-                        IconButton(
-                            onClick = {
-                                openDialogCalendar = true
-                            },
-                        ) {
-                            Icon(
-                                imageVector = Icons.Outlined.DateRange,
-                                contentDescription = "calendario",
-                                modifier = Modifier.size(32.dp),
-                            )
-                            if (openDialogCalendar) {
-                                DatePickerComponent(onDissmiss = { openDialogCalendar = false }) { dateSelected ->
-                                    viewModel.updateDate(dateSelected)
+                    }
+
+                }else{
+                    CustomTopAppBar(
+                        drawerState = drawerState,
+                        scope = scope,
+                        title = if (today.value.isDateActual()) "Hoy" else today.value.convertToString(),
+                        actions = {
+                            // todo: implementar searchBar en el topAppBar
+                            IconButton(onClick = { openSearchDialog.value = true }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.search_24),
+                                    contentDescription = "search icon",
+                                    modifier = Modifier.size(32.dp),
+                                )
+                            }
+                            IconButton(
+                                onClick = {
+                                    openDialogCalendar = true
+                                },
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.DateRange,
+                                    contentDescription = "calendario",
+                                    modifier = Modifier.size(32.dp),
+                                )
+                                if (openDialogCalendar) {
+                                    DatePickerComponent(onDissmiss = { openDialogCalendar = false }) { dateSelected ->
+                                        viewModel.updateDate(dateSelected)
+                                    }
                                 }
                             }
-                        }
-                        IconButton(onClick = {
-                            openDialogHelp = true
-                        }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.help_24),
-                                contentDescription = null,
-                                modifier = Modifier.size(32.dp),
-                            )
-                            if (openDialogHelp) {
-                                // todo:componentes para la ayuda, dependiendo de la screen llamar a determinado componentes
+                            IconButton(onClick = {
+                                openDialogHelp = true
+                            }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.help_24),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(32.dp),
+                                )
+                                if (openDialogHelp) {
+                                    // todo:componentes para la ayuda, dependiendo de la screen llamar a determinado componentes
+                                }
                             }
-                        }
-                    },
-                )
+                        },
+                    )
+                }
+
             },
         ) { paddingValues ->
             Column(

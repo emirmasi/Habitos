@@ -20,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -43,13 +42,13 @@ import com.practica.habitos.ui.theme.primaryContainerLight
 @Composable
 fun SearchBoxComponent(
     label: String,
-    searchBoxState: State<Boolean>,
+    modifier: Modifier = Modifier,
     listOfCategory: List<Categoria>,
     onFilterForType: (String)->Unit,
     onFilterByCategory: (String)->Unit,
     onSaveFilter: (String)->Unit,
     onDeleteFilter:()->Unit,
-    onBack:()->Unit,
+    onBack:(Boolean)->Unit,
     onSearch: (String) -> Unit,
 ) {
     // aca deberia ir el codigo de search box...
@@ -158,7 +157,7 @@ fun SearchBoxComponent(
                             )
                         }
                         IconButton(onClick = {
-                            onBack()
+                            onBack(false)
                         }){
                             Icon(
                                 painter = painterResource(id = R.drawable.arrow_up),
@@ -188,7 +187,7 @@ fun SearchBoxComponentPreview() {
     // aca debemos hacer la
     SearchBoxComponent(
         label = "Buscar",
-        searchBoxState = remember { mutableStateOf(false) },
+        modifier = Modifier.height(90.dp),
         listOfCategory = emptyList(),
         onFilterForType = {},
         onFilterByCategory = {},
