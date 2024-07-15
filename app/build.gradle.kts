@@ -6,6 +6,7 @@ plugins {
     id("org.jetbrains.kotlinx.kover")
 }
 
+
 android {
     namespace = "com.practica.habitos"
     compileSdk = 34
@@ -68,6 +69,8 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     //androidTestImplementation(platform("androidx.compose:compose-bom:2024.06.00"))
+    androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.4.3")
+
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")

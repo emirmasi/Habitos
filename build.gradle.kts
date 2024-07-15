@@ -5,3 +5,4 @@ plugins {
     id("com.google.dagger.hilt.android") version "2.47" apply false
     id("org.jetbrains.kotlinx.kover") version "0.7.3"
 }
+

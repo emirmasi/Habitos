@@ -58,7 +58,7 @@ fun HoyScreenContent(
     val openSearchDialog  = remember {
         mutableStateOf(false)
     }
-    ///todo: problema de cuando se me abre el searchBoxComponent utiliza toda la pantalla y me desaparece el calendarItem
+
     MenuLateral(
         navController = navController,
         drawerdState = drawerState,
@@ -78,7 +78,7 @@ fun HoyScreenContent(
                     ) {
                         SearchBoxComponent(
                             label = "actividad",
-                            modifier = Modifier.height(90.dp),
+                            modifier = Modifier.height(100.dp),
                             listOfCategory = emptyList(),
                             onFilterForType = {},
                             onFilterByCategory = {},

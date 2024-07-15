@@ -3,15 +3,12 @@ package com.practica.habitos.ui.components.hoyScreenComponent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -63,9 +60,8 @@ fun SearchBoxComponent(
         mutableStateOf(false)
     }
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
-            .height(90.dp)
             .clip(RoundedCornerShape(bottomStart = 10.dp, bottomEnd = 10.dp))
     ) {
         Row(
@@ -74,7 +70,7 @@ fun SearchBoxComponent(
                 .height(45.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
+            /*Row(
                 modifier = Modifier
                     .width(130.dp)
                     .border(BorderStroke(1.dp, Color.Black))
@@ -82,7 +78,7 @@ fun SearchBoxComponent(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ){
-                ///esto es un listPreview
+                ///esto deberia ser un composable , donde le puedo enviar una lista de tipos de categorias
                 Text(
                     text = "Todo",
                     fontSize = 18.sp,
@@ -94,6 +90,11 @@ fun SearchBoxComponent(
                         contentDescription = null,
                     )
                 }
+            }
+
+             */
+            FilterForType(listOf("Todo","habitos","salud")){
+
             }
             Box(
                 modifier = Modifier
