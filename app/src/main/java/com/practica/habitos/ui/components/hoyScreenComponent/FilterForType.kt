@@ -67,7 +67,6 @@ fun FilterForType(
             
         }
     }
-    
 }
 
 @Preview

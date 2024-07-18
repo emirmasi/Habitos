@@ -70,48 +70,11 @@ fun SearchBoxComponent(
                 .height(45.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            /*Row(
-                modifier = Modifier
-                    .width(130.dp)
-                    .border(BorderStroke(1.dp, Color.Black))
-                    .padding(start = 5.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ){
-                ///esto deberia ser un composable , donde le puedo enviar una lista de tipos de categorias
-                Text(
-                    text = "Todo",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.arrow_down),
-                        contentDescription = null,
-                    )
-                }
+            //componente para seleccionar un tipo de habito
+            FilterForType(listOf("Todo","habitos","salud")){result->
+                onFilterForType(result)
             }
 
-             */
-            FilterForType(listOf("Todo","habitos","salud")){
-
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .border(BorderStroke(1.dp, Color.Black))
-                    .clickable {
-                        //todo: componenente para seleccionar una categoria
-                    },
-                contentAlignment = Alignment.Center
-            ){
-                ///esto es un listPreview
-                Text(
-                    text = "Selecciona una categoria",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-            }
         }
         Row (modifier = Modifier
             .fillMaxSize()
