@@ -33,7 +33,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.practica.habitos.R
 import com.practica.habitos.ui.components.hoyScreenComponent.CalendarItem
+import com.practica.habitos.ui.components.hoyScreenComponent.CategoryIcon
 import com.practica.habitos.ui.components.hoyScreenComponent.DatePickerComponent
+import com.practica.habitos.ui.components.hoyScreenComponent.HabitAction
+import com.practica.habitos.ui.components.hoyScreenComponent.HabitContent
 import com.practica.habitos.ui.components.hoyScreenComponent.ItemCard
 import com.practica.habitos.ui.components.hoyScreenComponent.SearchBoxComponent
 import com.practica.habitos.ui.components.navigationComponent.CustomTopAppBar
@@ -157,7 +160,28 @@ fun HoyScreenContent(
                 ) {
                     items(viewModel.habitos.value.size) { index ->
                         viewModel.habitos.value[index].habito.forEach { date ->
-                            ItemCard(habito = date)
+                            ItemCard(
+                                icon = {
+                                    CategoryIcon(
+                                        icon = date.categoria.icono,
+                                        contentDescription = date.categoria.nombre,
+                                        color = date.categoria.color
+                                    )
+                                },
+                                content = {
+                                    HabitContent(
+                                        habito = date,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                },
+                                action = {
+                                    HabitAction(){
+
+                                    }
+                                },
+                            ){
+                              //todo: navegar al detalles de la actividad
+                            }
                         }
                     }
                 }
@@ -165,8 +189,6 @@ fun HoyScreenContent(
         }
     }
 }
-
-// /esto lo puedo mejorar con un checkbox de material 3
 
 @Preview(showBackground = true)
 @Composable

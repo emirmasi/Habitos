@@ -2,17 +2,15 @@ package com.practica.habitos.ui.components.hoyScreenComponent
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -32,10 +30,8 @@ import androidx.compose.ui.unit.sp
 import com.practica.habitos.R
 import com.practica.habitos.domain.models.Categoria
 import com.practica.habitos.ui.theme.Rosadito
-import com.practica.habitos.ui.theme.primaryContainerLight
 
 // todo: añadir parametro de las categorias
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBoxComponent(
     label: String,
@@ -74,9 +70,14 @@ fun SearchBoxComponent(
             FilterForType(listOf("Todo","habitos","salud")){result->
                 onFilterForType(result)
             }
-
+            
+            FilterForCategories(categories = listOfCategory) {
+                categorySelected->
+                onFilterByCategory(categorySelected)
+            }
         }
-        Row (modifier = Modifier
+        Row(
+            modifier = Modifier
             .fillMaxSize()
             .height(45.dp)
         ){
@@ -134,8 +135,8 @@ fun SearchBoxComponent(
                 colors = TextFieldDefaults.colors(
                     cursorColor = Rosadito,//para cambiar el cursor del textfield
                     focusedIndicatorColor = Color.Transparent,
-                    focusedContainerColor = primaryContainerLight,
-                    unfocusedContainerColor = primaryContainerLight,///este es para cambiar el fondo del textfield
+                    focusedContainerColor = MaterialTheme.colorScheme.onBackground,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.onBackground,///este es para cambiar el fondo del textfield
                     unfocusedIndicatorColor = Color.Transparent,
                     disabledIndicatorColor = Color.Transparent,
                     errorIndicatorColor = Color.Transparent
