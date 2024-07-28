@@ -14,8 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,8 +48,8 @@ fun FilterForType(
             modifier = Modifier
                 .menuAnchor(),
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.onBackground,
-                unfocusedContainerColor = MaterialTheme.colorScheme.onBackground
+                focusedContainerColor = MaterialTheme.colorScheme.surface,
+                unfocusedContainerColor = MaterialTheme.colorScheme.surface,
             )
         )
         ExposedDropdownMenu(
@@ -55,7 +57,11 @@ fun FilterForType(
             onDismissRequest = { isExpanded.value = false }) {
             listOfType.forEach { item->
                 DropdownMenuItem(
-                    text = { Text(text = item) },
+                    text = { Text(
+                        text = item,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold
+                    ) },
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
                         filterSelected.value = item

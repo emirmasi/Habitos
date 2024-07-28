@@ -3,6 +3,7 @@ package com.practica.habitos.ui.screen.hoyScreen
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -20,6 +21,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,6 +34,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.practica.habitos.R
+import com.practica.habitos.domain.models.DateItem
+import com.practica.habitos.domain.models.UserHabitLog
 import com.practica.habitos.ui.components.hoyScreenComponent.CalendarItem
 import com.practica.habitos.ui.components.hoyScreenComponent.CategoryIcon
 import com.practica.habitos.ui.components.hoyScreenComponent.DatePickerComponent
@@ -62,6 +66,7 @@ fun HoyScreenContent(
         mutableStateOf(false)
     }
 
+    // todo: mejorar el if o else
     MenuLateral(
         navController = navController,
         drawerdState = drawerState,
@@ -77,6 +82,11 @@ fun HoyScreenContent(
                         enter = slideInVertically(
                             initialOffsetY = { fullHeight -> -fullHeight }, // Desliza desde arriba
                             animationSpec = tween(durationMillis = 2000) // Duración de la animación
+                        ),
+                        exit =
+                            slideOutVertically(
+                                targetOffsetY = { fullHeight -> -fullHeight }, // Desliza hacia arriba
+                                animationSpec = tween(durationMillis = 2000), // Duración de la animación
                         )
                     ) {
                         SearchBoxComponent(
@@ -92,51 +102,66 @@ fun HoyScreenContent(
                             //todo: aca debo llamar al viewModel para filtrar
                         }
                     }
-
-                }else{
-                    CustomTopAppBar(
-                        drawerState = drawerState,
-                        scope = scope,
-                        title = if (today.value.isDateActual()) "Hoy" else today.value.convertToString(),
-                        actions = {
-                            // todo: implementar searchBar en el topAppBar
-                            IconButton(onClick = { openSearchDialog.value = true }) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.search_24),
-                                    contentDescription = "search icon",
-                                    modifier = Modifier.size(32.dp),
-                                )
-                            }
-                            IconButton(
-                                onClick = {
-                                    openDialogCalendar = true
-                                },
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Outlined.DateRange,
-                                    contentDescription = "calendario",
-                                    modifier = Modifier.size(32.dp),
-                                )
-                                if (openDialogCalendar) {
-                                    DatePickerComponent(onDissmiss = { openDialogCalendar = false }) { dateSelected ->
-                                        viewModel.updateDate(dateSelected)
+                } else {
+                    AnimatedVisibility(
+                        visible = !openSearchDialog.value,
+                        enter =
+                            slideInVertically(
+                                initialOffsetY = { fullHeight -> -fullHeight }, // Desliza desde arriba
+                                animationSpec = tween(durationMillis = 2000), // Duración de la animación
+                            ),
+                        exit =
+                            slideOutVertically(
+                                targetOffsetY = { fullHeight -> -fullHeight }, // Desliza hacia arriba
+                                animationSpec = tween(durationMillis = 2000), // Duración de la animación
+                            ),
+                    ) {
+                        CustomTopAppBar(
+                            drawerState = drawerState,
+                            scope = scope,
+                            title = if (today.value.isDateActual()) "Hoy" else today.value.convertToString(),
+                            actions = {
+                                // todo: implementar searchBar en el topAppBar
+                                IconButton(onClick = { openSearchDialog.value = true }) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.search_24),
+                                        contentDescription = "search icon",
+                                        modifier = Modifier.size(32.dp),
+                                    )
+                                }
+                                IconButton(
+                                    onClick = {
+                                        openDialogCalendar = true
+                                    },
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Outlined.DateRange,
+                                        contentDescription = "calendario",
+                                        modifier = Modifier.size(32.dp),
+                                    )
+                                    if (openDialogCalendar) {
+                                        DatePickerComponent(onDissmiss = {
+                                            openDialogCalendar = false
+                                        }) { dateSelected ->
+                                            viewModel.updateDate(dateSelected)
+                                        }
                                     }
                                 }
-                            }
-                            IconButton(onClick = {
-                                openDialogHelp = true
-                            }) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.help_24),
-                                    contentDescription = null,
-                                    modifier = Modifier.size(32.dp),
-                                )
-                                if (openDialogHelp) {
-                                    // todo:componentes para la ayuda, dependiendo de la screen llamar a determinado componentes
+                                IconButton(onClick = {
+                                    openDialogHelp = true
+                                }) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.help_24),
+                                        contentDescription = null,
+                                        modifier = Modifier.size(32.dp),
+                                    )
+                                    if (openDialogHelp) {
+                                        // todo:componentes para la ayuda, dependiendo de la screen llamar a determinado componentes
+                                    }
                                 }
-                            }
-                        },
-                    )
+                            },
+                        )
+                    }
                 }
 
             },
@@ -146,44 +171,67 @@ fun HoyScreenContent(
                     Modifier
                         .padding(paddingValues),
             ) {
-                // /hecho
-                CalendarItem(
+                CalendarSection(
                     dateInRange = viewModel.dateInRange,
-                    returnTodayDateInRage = { viewModel.returnTodayDateInRange() },
-                    actualizarHoy = { dateItem -> viewModel.updateDate(dateItem) },
-                )
+                    returnTodayDateInRage = { viewModel.returnTodayDateInRange() }) { dateItem ->
+                    viewModel.updateDate(dateItem)
+                }
                 Spacer(modifier = Modifier.padding(bottom = 8.dp))
-                LazyColumn(
-                    modifier =
-                        Modifier
-                            .fillMaxHeight(),
-                ) {
-                    items(viewModel.habitos.value.size) { index ->
-                        viewModel.habitos.value[index].habito.forEach { date ->
-                            ItemCard(
-                                icon = {
-                                    CategoryIcon(
-                                        icon = date.categoria.icono,
-                                        contentDescription = date.categoria.nombre,
-                                        color = date.categoria.color
-                                    )
-                                },
-                                content = {
-                                    HabitContent(
-                                        habito = date,
-                                        modifier = Modifier.weight(1f)
-                                    )
-                                },
-                                action = {
-                                    HabitAction(){
+                HabitList(
+                    listOfHabits = viewModel.habitos,
+                    navController = navController,
+                )
+            }
+        }
+    }
+}
 
-                                    }
-                                },
-                            ){
-                              //todo: navegar al detalles de la actividad
-                            }
+@Composable
+fun CalendarSection(
+    dateInRange: State<List<DateItem>>,
+    returnTodayDateInRage: () -> DateItem,
+    actualizarHoy: (DateItem) -> Unit,
+) {
+    CalendarItem(
+        dateInRange = dateInRange,
+        returnTodayDateInRange = { returnTodayDateInRage() },
+    ) { dateItem ->
+        actualizarHoy(dateItem)
+    }
+}
+
+@Composable
+fun HabitList(
+    listOfHabits: State<List<UserHabitLog>>,
+    navController: NavHostController,
+) {
+    LazyColumn(
+        modifier =
+            Modifier
+                .fillMaxHeight(),
+    ) {
+        items(listOfHabits.value.size) { index ->
+            listOfHabits.value[index].habito.forEach { date ->
+                ItemCard(
+                    icon = {
+                        CategoryIcon(
+                            icon = date.categoria.icono,
+                            contentDescription = date.categoria.nombre,
+                            color = date.categoria.color,
+                        )
+                    },
+                    content = {
+                        HabitContent(
+                            habito = date,
+                        )
+                    },
+                    action = {
+                        HabitAction {
                         }
-                    }
+                    },
+                ) {
+                    //todo: navegar al detalles de la actividad
+
                 }
             }
         }
@@ -195,4 +243,20 @@ fun HoyScreenContent(
 fun ItemsPreview() {
     val navController = rememberNavController()
     HoyScreenContent(navController = navController, HoyScreenViewModel())
+}
+
+///el cubo magico es una matriz de 3 x 3 donde tiene numeros del 1 al 9 y la suma de las filas y columnas es igual a 15
+fun isMagicCub(matriz: Array<Array<Int>>): Boolean{
+    val isCorrect = false
+
+    if(matriz.isEmpty())
+        return isCorrect
+    var sumFila  = 0
+    var sumCol = 0
+    for(fila in matriz ){
+        for (elemento in fila){
+            sumFila += elemento
+        }
+    }
+    return isCorrect
 }

@@ -40,11 +40,11 @@ import java.util.Locale
 @Composable
 fun CalendarItem(
     dateInRange: State<List<DateItem>>,
-    returnTodayDateInRage: ()-> DateItem,
+    returnTodayDateInRange: ()-> DateItem,
     actualizarHoy: (DateItem) -> Unit
 ) {
     var backgroundColor by remember { mutableStateOf(onTertiaryLight) }
-    val scrollState = rememberLazyListState(initialFirstVisibleItemIndex = dateInRange.value.indexOf(returnTodayDateInRage()))
+    val scrollState = rememberLazyListState(initialFirstVisibleItemIndex = dateInRange.value.indexOf(returnTodayDateInRange()))
     var selectedCardIndex by remember { mutableStateOf(-1) }
     LazyRow(
         modifier = Modifier

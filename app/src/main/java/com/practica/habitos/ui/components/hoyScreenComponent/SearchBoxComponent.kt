@@ -135,8 +135,8 @@ fun SearchBoxComponent(
                 colors = TextFieldDefaults.colors(
                     cursorColor = Rosadito,//para cambiar el cursor del textfield
                     focusedIndicatorColor = Color.Transparent,
-                    focusedContainerColor = MaterialTheme.colorScheme.onBackground,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.onBackground,///este es para cambiar el fondo del textfield
+                    focusedContainerColor = MaterialTheme.colorScheme.surface,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.surface,///este es para cambiar el fondo del textfield
                     unfocusedIndicatorColor = Color.Transparent,
                     disabledIndicatorColor = Color.Transparent,
                     errorIndicatorColor = Color.Transparent
