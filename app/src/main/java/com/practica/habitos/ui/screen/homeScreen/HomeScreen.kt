@@ -45,7 +45,7 @@ fun HomeScreenContent(navController: NavHostController) {
                         .size(50.dp),
                 shape = MaterialTheme.shapes.medium,
                 onClick = {
-                    // /aca agregamos un nuevo habito
+                    ///todo:aca agregamos un nuevo habito
                 },
                 containerColor = Rosadito,
             ) {
