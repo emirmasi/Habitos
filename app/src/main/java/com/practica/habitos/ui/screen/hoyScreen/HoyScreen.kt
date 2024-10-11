@@ -34,9 +34,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.practica.habitos.R
-import com.practica.habitos.domain.models.DateItem
 import com.practica.habitos.domain.models.UserHabitLog
-import com.practica.habitos.ui.components.hoyScreenComponent.CalendarItem
+import com.practica.habitos.ui.components.hoyScreenComponent.CalendarSection
 import com.practica.habitos.ui.components.hoyScreenComponent.CategoryIcon
 import com.practica.habitos.ui.components.hoyScreenComponent.DatePickerComponent
 import com.practica.habitos.ui.components.hoyScreenComponent.HabitAction
@@ -46,7 +45,8 @@ import com.practica.habitos.ui.components.hoyScreenComponent.SearchBoxComponent
 import com.practica.habitos.ui.components.navigationComponent.CustomTopAppBar
 import com.practica.habitos.ui.components.navigationComponent.MenuLateral
 
-// todo:cambiar el viewModel por parametro
+// todo:cambiar el filtro en el bscador , añadir funcionalidad de agregar un habito, añadir
+//la navegacion del timer
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HoyScreenContent(
@@ -186,20 +186,7 @@ fun HoyScreenContent(
     }
 }
 
-@Composable
-fun CalendarSection(
-    dateInRange: State<List<DateItem>>,
-    returnTodayDateInRage: () -> DateItem,
-    actualizarHoy: (DateItem) -> Unit,
-) {
-    CalendarItem(
-        dateInRange = dateInRange,
-        returnTodayDateInRange = { returnTodayDateInRage() },
-    ) { dateItem ->
-        actualizarHoy(dateItem)
-    }
-}
-
+///todo: poner en un archivo nuevo
 @Composable
 fun HabitList(
     listOfHabits: State<List<UserHabitLog>>,
@@ -243,20 +230,4 @@ fun HabitList(
 fun ItemsPreview() {
     val navController = rememberNavController()
     HoyScreenContent(navController = navController, HoyScreenViewModel())
-}
-
-///el cubo magico es una matriz de 3 x 3 donde tiene numeros del 1 al 9 y la suma de las filas y columnas es igual a 15
-fun isMagicCub(matriz: Array<Array<Int>>): Boolean{
-    val isCorrect = false
-
-    if(matriz.isEmpty())
-        return isCorrect
-    var sumFila  = 0
-    var sumCol = 0
-    for(fila in matriz ){
-        for (elemento in fila){
-            sumFila += elemento
-        }
-    }
-    return isCorrect
 }

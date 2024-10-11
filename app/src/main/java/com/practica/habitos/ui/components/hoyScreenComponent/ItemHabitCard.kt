@@ -29,15 +29,9 @@ import java.time.DayOfWeek
 ///todo:mejorar , mostrar icono , titulo , y una animacion para ver mas detalles , descripcion , fecha de inicio y de fin y ademas boton para eliminar y editar
 @Composable
 fun ItemCard(
-    icon:
-        @Composable()
-        (() -> Unit),
-    content:
-        @Composable()
-        (() -> Unit),
-    action:
-        @Composable()
-        (() -> Unit),
+    icon: @Composable() (() -> Unit),
+    content: @Composable() (() -> Unit),
+    action: @Composable() (() -> Unit),
     onClick: () -> Unit,
 ) {
     // hay que declarar una variable is expanded
