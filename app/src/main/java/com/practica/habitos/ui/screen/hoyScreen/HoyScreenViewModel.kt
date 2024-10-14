@@ -3,6 +3,7 @@ package com.practica.habitos.ui.screen.hoyScreen
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.practica.habitos.domain.models.Categoria
 import com.practica.habitos.domain.models.DateItem
 import com.practica.habitos.domain.models.UserHabitLog
 import java.time.LocalDate
@@ -18,6 +19,9 @@ class HoyScreenViewModel : ViewModel() {
 
     private val _listaDehabitos = mutableStateOf<List<UserHabitLog>>(emptyList())
     val habitos: State<List<UserHabitLog>> = _listaDehabitos
+
+    private val _listOfCategories = mutableStateOf<List<Categoria>>(emptyList())
+    val listOfCategories: State<List<Categoria>> = _listOfCategories
 
     init {
         loadDateInRange()
@@ -61,4 +65,16 @@ class HoyScreenViewModel : ViewModel() {
             }!!
         return datefind
     }
+
+
+    fun filterForType(filter: String) {
+        //TODO
+    }
+
+    fun filterForCategory(filter: String) {
+        //TODO
+    }
+
+    ///fun obtener las categorias desde los habitos del usuario
+
 }

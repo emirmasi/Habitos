@@ -25,7 +25,7 @@ fun NavigationComponent(
             HabitsScreenContent()
         }
         composable(NavigationRoutes.Categories.route){
-            CategoriesScreenContent(navController = navHostController)
+            CategoriesScreenContent(navHostController)
         }
     }
 }
