@@ -10,7 +10,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -33,9 +32,7 @@ import com.practica.habitos.ui.components.navigationComponent.MenuLateral
 import com.practica.habitos.ui.theme.IconColor
 import com.practica.habitos.ui.theme.Rosadito
 
-// todo:cambiar el filtro en el bscador , añadir funcionalidad de agregar un habito, añadir
-//la navegacion del timer
-@OptIn(ExperimentalMaterial3Api::class)
+///todo: hacer las screen para crear un nuevo habito
 @Composable
 fun HoyScreenContent(
     navController: NavHostController,
