@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -38,9 +37,7 @@ fun CategoryDisplay(
 ) {
     var selectedCategoria by remember { mutableStateOf<Categoria?>(null) }
     Column(
-        modifier = Modifier.fillMaxSize()
     ) {
-        //todo: aca debemos poner un titulo como elegir categoria
         LazyVerticalGrid(
             columns = GridCells.Fixed(4),
             modifier =
@@ -84,7 +81,6 @@ fun CategoryDisplay(
                 }
             }
         }
-        //todo: agregar componente para crear una categoria nueva
     }
 }
 

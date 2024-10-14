@@ -186,6 +186,12 @@ fun HoyScreenContent(
     }
 }
 
+//todo:aca mejoro el topAppBar
+@Composable
+fun AppBarAnimation(){
+
+}
+
 ///todo: poner en un archivo nuevo
 @Composable
 fun HabitList(
