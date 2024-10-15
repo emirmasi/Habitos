@@ -22,7 +22,7 @@ fun NavigationComponent(
             HoyScreenContent(navHostController, HoyScreenViewModel())
         }
         composable(NavigationRoutes.Habits.route){
-            HabitsScreenContent()
+            HabitsScreenContent(navHostController)
         }
         composable(NavigationRoutes.Categories.route){
             CategoriesScreenContent(navHostController)

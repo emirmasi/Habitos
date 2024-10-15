@@ -64,6 +64,7 @@ fun HoyScreenContent(
                     onDateSelected = { date -> viewModel.updateDate(date) },
                     onFilterForType = { filter -> viewModel.filterForType(filter) },
                     onFilterForCategory = { filter -> viewModel.filterForCategory(filter) },
+                    onSearch = { search -> viewModel.searchHabits(search) }
                 )
             },
             floatingActionButton = {

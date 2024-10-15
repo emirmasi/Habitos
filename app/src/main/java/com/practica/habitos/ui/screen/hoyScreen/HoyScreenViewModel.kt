@@ -75,6 +75,10 @@ class HoyScreenViewModel : ViewModel() {
         //TODO
     }
 
+    fun searchHabits(search: String) {
+
+    }
+
     ///fun obtener las categorias desde los habitos del usuario
 
 }
