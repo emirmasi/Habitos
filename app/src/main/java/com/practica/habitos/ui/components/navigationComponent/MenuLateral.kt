@@ -62,7 +62,7 @@ fun MenuLateral(
                         fontSize = 28.sp,
                     )
                     Text(
-                        text = today.convertDayofWeekToString(today.dayOfWeek),
+                        text = today.formatDate(),
                         color = MaterialTheme.colorScheme.secondary,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 18.sp,

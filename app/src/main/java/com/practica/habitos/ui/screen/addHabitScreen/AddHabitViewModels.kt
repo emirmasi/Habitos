@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.practica.habitos.domain.models.Categoria
 import com.practica.habitos.domain.models.DateItem
+import com.practica.habitos.domain.models.convertToDIADELASEMANA
 import java.time.LocalDate
 
 ///todo : inyectar hilt
@@ -86,7 +87,7 @@ class AddHabitViewModels: ViewModel(){
         }
     }
     fun parseDateLocalDateToDateItem(fecha:LocalDate): DateItem {
-        return DateItem(fecha.dayOfMonth,fecha.month.value,fecha.year,fecha.dayOfWeek)
+        return DateItem(fecha.dayOfMonth,fecha.month.value,fecha.year,fecha.dayOfWeek.convertToDIADELASEMANA(fecha.dayOfWeek))
     }
 
     fun parseDateStringToDateItem(date: String): DateItem? {
@@ -96,7 +97,7 @@ class AddHabitViewModels: ViewModel(){
             val month = part[1].toIntOrNull()?:0
             val year = part[3].toIntOrNull()?:0
             val dayOfWeek = LocalDate.of(year,month,day).dayOfWeek
-            return DateItem(day,month,year, dayOfWeek = dayOfWeek)
+            return DateItem(day,month,year, dayOfWeek = dayOfWeek.convertToDIADELASEMANA(dayOfWeek))
         }else
             return null
     }

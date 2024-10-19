@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import com.practica.habitos.domain.models.DateItem
+import com.practica.habitos.domain.models.convertToDIADELASEMANA
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -37,7 +38,7 @@ fun DatePickerComponent(
                             instance.dayOfMonth,
                             instance.month.value,
                             instance.year,
-                            instance.dayOfWeek,
+                            instance.dayOfWeek.convertToDIADELASEMANA(instance.dayOfWeek),
                         )
                         onDateSelected(dateSelected)
                     }

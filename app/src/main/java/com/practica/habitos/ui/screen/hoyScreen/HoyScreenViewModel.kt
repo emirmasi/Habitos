@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.practica.habitos.domain.models.Categoria
 import com.practica.habitos.domain.models.DateItem
 import com.practica.habitos.domain.models.UserHabitLog
+import com.practica.habitos.domain.models.convertToDIADELASEMANA
 import java.time.LocalDate
 
 class HoyScreenViewModel : ViewModel() {
@@ -53,7 +54,7 @@ class HoyScreenViewModel : ViewModel() {
     }
 
     private fun convertLocalDateToDateItem(fecha: LocalDate): DateItem =
-        DateItem(fecha.dayOfMonth, fecha.month.value, fecha.year, fecha.dayOfWeek)
+        DateItem(fecha.dayOfMonth, fecha.month.value, fecha.year, fecha.dayOfWeek.convertToDIADELASEMANA(fecha.dayOfWeek))
 
     fun returnTodayDateInRange(): DateItem {
         val datefind: DateItem =
@@ -61,7 +62,7 @@ class HoyScreenViewModel : ViewModel() {
                 date.day == today.dayOfMonth &&
                     date.month == today.month.value &&
                     date.year == today.year &&
-                    date.dayOfWeek == today.dayOfWeek
+                    date.dayOfWeek == today.dayOfWeek.convertToDIADELASEMANA(today.dayOfWeek)
             }!!
         return datefind
     }
@@ -73,6 +74,10 @@ class HoyScreenViewModel : ViewModel() {
 
     fun filterForCategory(filter: String) {
         //TODO
+    }
+
+    fun searchHabits(search: String) {
+
     }
 
     ///fun obtener las categorias desde los habitos del usuario

@@ -37,19 +37,24 @@ fun TopBar(
     onDateSelected: (DateItem) -> Unit,
     onFilterForType: (String) -> Unit,
     onFilterForCategory: (String) -> Unit,
+    onSearch: (String) -> Unit
 ) {
     if (openSearchDialog.value) {
         SearchBoxComponent(
             label = "actividad",
             modifier = Modifier.height(100.dp),
-            listOfCategory = emptyList(),
-            onFilterForType = {filter-> onFilterForType(filter)},
+            listOfCategory = listOfCategory,
             onFilterByCategory = {filter-> onFilterForCategory(filter)},
             onSaveFilter = {},
             onDeleteFilter = {},
             onBack = { result -> openSearchDialog.value = result },
-            onSearch = { result -> /* Lógica de filtro */ }
-        )
+            onSearch = { result -> onSearch(result) }
+        ){
+            //este filtro es opcional
+            FilterForType(listOfType = listOf("Todo","Habitos","Tareas")) {
+                filter->onFilterForType(filter)
+            }
+        }
     } else {
         AnimatedVisibility(
             visible = !openSearchDialog.value,

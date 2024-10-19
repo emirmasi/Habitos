@@ -37,12 +37,12 @@ fun SearchBoxComponent(
     label: String,
     modifier: Modifier = Modifier,
     listOfCategory: List<Categoria>,
-    onFilterForType: (String)->Unit,
     onFilterByCategory: (String)->Unit,
     onSaveFilter: (String)->Unit,
     onDeleteFilter:()->Unit,
     onBack:(Boolean)->Unit,
     onSearch: (String) -> Unit,
+    filterForType: @Composable() (String) -> Unit,
 ) {
     // aca deberia ir el codigo de search box...
     val text =
@@ -67,9 +67,11 @@ fun SearchBoxComponent(
             verticalAlignment = Alignment.CenterVertically
         ) {
             //componente para seleccionar un tipo de habito
-            FilterForType(listOf("Todo","habitos","salud")){result->
+            /*FilterForType(listOf("Todo","habitos","salud")){result->
                 onFilterForType(result)
             }
+
+             */
             
             FilterForCategories(categories = listOfCategory) {
                 categorySelected->
@@ -154,11 +156,15 @@ fun SearchBoxComponentPreview() {
         label = "Buscar",
         modifier = Modifier.height(90.dp),
         listOfCategory = emptyList(),
-        onFilterForType = {},
         onFilterByCategory = {},
         onSaveFilter = {},
         onDeleteFilter = {},
         onBack = {},
         onSearch = {},
-    )
+    ){
+        FilterForType(listOf("Todo","habitos","salud")){
+            onFilterForType-> 
+
+        }
+    }
 }
