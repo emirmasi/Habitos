@@ -24,7 +24,6 @@ import com.practica.habitos.domain.models.Categoria
 import com.practica.habitos.domain.models.DIASDELASEMANA
 import com.practica.habitos.domain.models.DateItem
 import com.practica.habitos.domain.models.Habito
-import java.time.DayOfWeek
 
 ///todo:mejorar , mostrar icono , titulo , y una animacion para ver mas detalles , descripcion , fecha de inicio y de fin y ademas boton para eliminar y editar
 @Composable
@@ -100,8 +99,8 @@ fun ItemCardPreview(){
        habito = "comer bien",
        descripcion = "comer manzana",
        categoria = Categoria("ejer", Icons.Default.Home, Color.Blue),
-       fechaDeInicio = DateItem(10,6,2024,DayOfWeek.SUNDAY),
-       fechaDeFin = DateItem(12,6,2024,DayOfWeek.WEDNESDAY),
+       fechaDeInicio = DateItem(10,6,2024,DIASDELASEMANA.DOMINGO),
+       fechaDeFin = DateItem(12,6,2024,DIASDELASEMANA.JUEVES),
        diasARealizarloDeLaSemana = setOf(DIASDELASEMANA.MIERCOLES),
         completed = true,
     )

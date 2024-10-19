@@ -34,8 +34,6 @@ import com.practica.habitos.domain.models.DateItem
 import com.practica.habitos.ui.theme.RosaditoMasClaro
 import com.practica.habitos.ui.theme.onTertiaryLight
 import com.practica.habitos.ui.theme.secondaryLight
-import java.time.format.TextStyle
-import java.util.Locale
 
 @Composable
 fun CalendarItem(
@@ -82,8 +80,7 @@ fun CalendarItem(
                     ) {
                         Text(
                             text = "${
-                                date.dayOfWeek.getDisplayName(TextStyle.FULL, Locale("es"))
-                                    .toString().subSequence(0, 3)
+                                date.dayOfWeek.toString().subSequence(0, 3)
                             }",
                             color = secondaryLight,
                             fontWeight = FontWeight.Bold,
@@ -106,5 +103,4 @@ fun CalendarItem(
 @Preview(showBackground = true)
 @Composable
 fun CalendarItemPreview() {
-
 }

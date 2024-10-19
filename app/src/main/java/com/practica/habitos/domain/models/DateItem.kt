@@ -3,11 +3,12 @@ package com.practica.habitos.domain.models
 import java.time.DayOfWeek
 import java.time.LocalDate
 
+///el dayOfWeek me devuelve un int , realcionado con la semana
 class DateItem(
     val day: Int,
     val month: Int,
     val year: Int,
-    val dayOfWeek: DayOfWeek,
+    val dayOfWeek: DIASDELASEMANA,
 ) {
     fun convertToString(): String = "$day/$month/$year"
 
@@ -30,15 +31,14 @@ class DateItem(
         return mes.getValue(month)
     }
 
-    fun convertDayofWeekToString(dayofWeek:DayOfWeek):String{
+
+    fun convertDayOfWeekToDiaDeLaSemana(dayOfWeek: DayOfWeek):DIASDELASEMANA{
         val dia = mapOf(
-            1 to "Lunes",
-            2 to "Martes",
-            3 to "Miercoles",
-            4 to "Jueves",
-            5 to "Viernes",
-            6 to "Sabado",
-            7 to "Domingo"
+            1 to DIASDELASEMANA.LUNES,
+            2 to DIASDELASEMANA.MARTES,
+            3 to DIASDELASEMANA.MIERCOLES,
+            4 to DIASDELASEMANA.JUEVES,
+            5 to DIASDELASEMANA.VIERNES
         )
         return dia.getValue(dayOfWeek.value)
     }

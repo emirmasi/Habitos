@@ -88,6 +88,8 @@ fun HabitsScreenContent(
             },
         ) { paddingValues ->
             Column(modifier = Modifier.padding(paddingValues)) {
+                val semana = viewModel.semana
+
             }
         }
     }
