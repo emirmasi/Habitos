@@ -89,7 +89,15 @@ fun HabitsScreenContent(
         ) { paddingValues ->
             Column(modifier = Modifier.padding(paddingValues)) {
                 val semana = viewModel.semana
+                /*val habitos = viewModel.habitos
+                habitos.value.forEach {
+                    habito->
+                    HabitCard(habito = habito, navController = navHostController, semana = semana) {
+                        ///todo: al hacer click espera un evento
+                    }
+                }
 
+                 */
             }
         }
     }

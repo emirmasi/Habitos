@@ -4,6 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.practica.habitos.domain.models.DateItem
+import com.practica.habitos.domain.models.Habito
 import com.practica.habitos.domain.models.convertToDIADELASEMANA
 import java.time.LocalDate
 
@@ -13,6 +14,9 @@ class HabitsScreenViewModel: ViewModel() {
 
     private val _semana = mutableStateOf<List<DateItem>>(emptyList())
     val semana: State<List<DateItem>> = _semana
+
+    private val _habitos = mutableStateOf<List<Habito>>(emptyList())
+    val habitos: State<List<Habito>> = _habitos
 
 
     private fun getSemana(){
